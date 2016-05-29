@@ -15,16 +15,16 @@ class Shark :
 		
 		self.pmute = 0.08   # muting rate, 0.8 par million d annee
 		    
-		self.size=0 # len(requin), je sais pas si on en a besoin en fait
+		self.size=0 # len(requin), je sais pas si on en a besoin en fait 
 		self.lateral_bio=0 # the intraspecific recognition one
 		self.ventral_bio=0 # camouflage one
     
-    
+    #Lecture du ventre du requin 
 		with open(file_name, 'r') as f:
 			self.body = f.readlines() # rectangle, 
 		for a in self.body :
 			for b in a : 
-				if (b != '-1') :
+				if (b != '-1') : 
 					self.size +=1
 					"""if ( int(b) <= #?  ) :
 						self.lateral_bio +=1
@@ -46,7 +46,7 @@ class Shark :
 		mute = random.uniform()
 		if (mute <= self.pmute) : 
 			if (mute <= self.pmute/2) :
-				self.lateral_bio +=1
+				self.lateral_bio +=1 #comment varie la bioluminsecence quand on mute ? On ajoute juste 1
 			elif(mute > self.pmute/2) :
 				self.ventral_bio +=1
 				
@@ -69,8 +69,8 @@ class Zone :
 	def __init__(self, prof_min, prof_max, nb_sharks) :
 		
 		#limites zones
-		self.prof_min = prof_min 
-		self.prof_max = prof_max
+		self.prof_min = prof_min  #0 m
+		self.prof_max = prof_max # 1200 m (cf article )
 		self.sharks=[]
     
 		if (nb_sharks > 0) :
