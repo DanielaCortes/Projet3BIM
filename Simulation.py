@@ -10,7 +10,7 @@ class Shark :
 	"""
 	
 	def __init__(self, file_name, zone) :
-		self.position = zone # zone dans laquelle il se trouve
+		self.position = zone # zone dans laquelle il se trouve #Ajouter une fonction qui détermine à partir bioluminescence où il se trouve ?
 		self.coef_bio = 300 # son coefficient de biolum, valeur a modifier, c est juste une valeur random pour l instant !!!!!
 		
 		self.pmute = 0.08   # muting rate, 0.8 par million d annee
