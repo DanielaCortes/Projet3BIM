@@ -41,6 +41,12 @@ class Shark :
 	      
 	def updateBiolum(self) : 
 		return self.lateralBio() + self.ventralBio()
+  
+  
+  
+  def initZone(self) : #donne la profondeur initiale en fonction de la proportion de requin recouvert par les photophores
+    self.position=exp(2.31)*(self.ventralBio/self.size)^(-0.564)  
+    
       
 	def toMute (self) : # mute fluorescent parts ( plus de cas de figures genre mutation non fluorescentes ou alors une fluorescence au profit de l'autre ?
 		mute = random.uniform()
