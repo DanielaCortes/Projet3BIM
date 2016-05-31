@@ -11,12 +11,14 @@ class Zone :
 		self.prof_min = prof_min  #0 m
 		self.prof_max = prof_max # 1200 m (cf article )
 		self.sharks=[]
+		self.coeff_lat_lum=0.5 #valeur random a calculer en realite
+		self.coeff_vent_lum=0.5 
     
 		if (nb_sharks > 0) :
 		
 			for i in xrange (nb_sharks) :
         			I =random.randint(prof_min,prof_max) # se situe aleatoirement dans la zone consideree
-        			self.sharks.append(Shark( "test.txt", I ))
+        			##self.sharks.append(Shark( "test.txt", I ))
 			
 		self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre. Je pense que c'est plus simple comme ca.
 		## En fait, peu importe leur position dans la zone.

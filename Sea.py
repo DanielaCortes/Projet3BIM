@@ -1,4 +1,6 @@
 import random
+import math
+
 from Shark import Shark
 from Zone import Zone
 from Predator import Predator
@@ -40,24 +42,28 @@ class Sea :
 
 	def Evo_population (self,zone) : # calculate how many sharks die or give birth, idem predators
 		r0=0.47
-		r=r0*(1+self.lateral_bio)^2
+		r=r0*math.pow(1+zone.coeff_lat_lum,2)
 		K=600 
 		e=0.47
 		alpha0=0.4
-		alpha=alpha0*(1+self.lateral_bio)/(1+self.ventral_bio)
+		alpha=alpha0*(1+zone.coeff_lat_lum)/(1+zone.coeff_vent_lum)
 		m=2
 		beta=35
 		h=0.1 #pas de temps
+		
+		#Valeur initiale
 		nb_Rn=len(zone.sharks)
 		nb_Pn=len(zone.predators)
-		for t in range(0,1,1):
-				nb_R=nb_Rn+h*r*nb_Rn*(1-nb_Rn/K)-alpha*nb_Rn*nb_Pn/(beta+nb_Rn)
-				nb_P=nb_Pn+h*nb_Pn*e*(1-m*nb_Pn/nb_Rn)
-				nb_Rn=nb_R
-				nb_Pn=nb_P
-		diff_R=round(nb_R-len(zone.sharks))
-		diff_P=round(nb_P-len(zone.predators))
+		
+		#Calcul au temps n+1
+		nb_R=nb_Rn+h*(r*nb_Rn*(1-nb_Rn/K)-alpha*nb_Rn*nb_Pn/(beta+nb_Rn))
+		nb_P=nb_Pn+h*nb_Pn*e*(1-m*nb_Pn/nb_Rn)
+		
+		#Différence sur un pas de temps
+		diff_R=round(nb_R-nb_Rn)
+		diff_P=round(nb_P-nb_Pn)
 		return diff_R,diff_P
+	
 
 	def predation(self):
 		diff_P_tot=0;
