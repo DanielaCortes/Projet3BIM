@@ -59,7 +59,7 @@ class Sea :
 		nb_R=nb_Rn+h*(r*nb_Rn*(1-nb_Rn/K)-alpha*nb_Rn*nb_Pn/(beta+nb_Rn))
 		nb_P=nb_Pn+h*nb_Pn*e*(1-m*nb_Pn/nb_Rn)
 		
-		#Différence sur un pas de temps
+		#Difference sur un pas de temps
 		diff_R=round(nb_R-nb_Rn)
 		diff_P=round(nb_P-nb_Pn)
 		return diff_R,diff_P
