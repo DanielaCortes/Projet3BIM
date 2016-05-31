@@ -11,26 +11,31 @@ class Sea :
 	- some predators
 	"""
 
-	def __init__(self,D,zones,nb_sharks,starting_I,nb_predators) : #zones c'est les limites de chaque zones
+	def __init__(self,D,zone_,nb_sharks,starting_I,nb_predators) : #zones c'est les limites de chaque zones
 
 
 		self.D=D #profondeur du milieu
 		
 		self.zones={} #dico, cle bornes de la zones sous forme de tuple, objet zone
 		
-		for i in xrange (len(zones)) :
-			if (zones[i] == starting_I) : #On initialise en ne mettant des requins que dans la premiere zone
+		for i in xrange (len(zone_)) :
+			if (zone_[i] == starting_I) : #On initialise en ne mettant des requins que dans la premiere zone
 				s = nb_sharks
 			else :
 				s=0
-			self.zones[zones[i]]=Zone(zones[i][0],zones[i][1],s)
+			self.zones[zone_[i]]=Zone(zone_[i][0],zone_[i][1],s)
 			 
     		self.predators=[]
 		for i in xrange (nb_predators) :
       
-			position=random.uniform(zones[0][0], zones[len(zones)-1][1])
+				position=random.uniform(zone_[0][0], zone_[len(zone_)-1][1])
 
-			self.predators.append(Predator(position)) #correspond a un endroit random
+				self.predators.append(Predator(position)) #correspond a un endroit random
+			
+				for i in xrange (len(zone_)) : #on ajoute les predateurs dans les zones en fonction de la position
+					if (position>zone_[i][0] and position<zone_[i][1]):
+							self.zones[zone_[i]].addPredator()
+							break							
 
 
 	def Evo_population (self,zone) : # calculate how many sharks die or give birth, idem predators
@@ -65,15 +70,28 @@ class Sea :
 			else : #Cas ou la population augmente
 					z.newSharks(diff_R)
 					
-		
-		for p in range(abs(diff_P_tot)):
-			Z=random.choice(d.values())
-			if(diff_P_tot<0): #en pratique il faudrait prendre en compte le cas ou il n'y a pas suffisamment de predateur dans la zone
-				Z.killPredator()
+		#Population de predateurs
+		if (diff_P_tot<0):
+			if (len(self.predators)+diff_P_tot>0):
+				pred_candidate=random.choice(self.predators)
+				self.predators.remove(pred_candidate)
+				for z in self.zones.keys():
+						if (pred_candidate.position<z[1] and pred_candidate.position>z[0]):
+							self.zones[z].killPredator()
 			else:
-				Z.addPredator(Predator(Z.D))#a verifier en fonction de la definition du predateur.
-      #ou alors on place aleatoirement les predateurs dans la mer,
-      ### a chaque pas de temps on redistribue notre population totale
-      #### et apres on les repartit dans une zone en fonction de la profondeur
-        
+				self.predators=[]
+				for z in self.zones.keys():
+						while (self.zones[z].predators>0):
+							self.zones[z].killPredator()
+		else: #peut-etre creer une methode ajout predateur
+				position=random.uniform(min(self.zones.prof_min),max(self.zones.prof_max)) # pas sur que ca marche
+
+				self.predators.append(Predator(position)) 
+			
+				for z in self.zones.keys():
+						if (position<z[1] and position>z[0]):
+							self.zones[z].addPredator()				
+			
+			 
+
         
