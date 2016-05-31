@@ -8,26 +8,27 @@ from Predator import Predator
 class Sea :
 	"""attributes 
 	- D depth
-	- each zone H*W 
-	- some sharks
+	- zones with sharks 
 	- some predators
+	- nb of shark in the Sea
 	"""
-
-	def __init__(self,D,zone_,nb_sharks,starting_I,nb_predators) : #zones c'est les limites de chaque zones
+	def __init__(self,D,zone_,nb_sharks_,starting_I,nb_predators) : #zones c'est les limites de chaque zones
 
 
 		self.D=D #profondeur du milieu
 		
 		self.zones={} #dico, cle bornes de la zones sous forme de tuple, objet zone
+		self.nb_sharks=nb_sharks_
 		
 		for i in xrange (len(zone_)) :
 			if (zone_[i] == starting_I) : #On initialise en ne mettant des requins que dans la premiere zone
-				s = nb_sharks
+				s = nb_sharks_
 			else :
 				s=0
 			self.zones[zone_[i]]=Zone(zone_[i][0],zone_[i][1],s)
-			 
-    		self.predators=[]
+			self.zones[zone_[i]].newPercent(self.nb_sharks)
+    		
+		self.predators=[]
 		for i in xrange (nb_predators) :
       
 				position=random.uniform(zone_[0][0], zone_[len(zone_)-1][1])
@@ -43,7 +44,7 @@ class Sea :
 	def Evo_population (self,zone) : # calculate how many sharks die or give birth, idem predators
 		r0=0.47
 		r=r0*math.pow(1+zone.coeff_lat_lum,2)
-		K=600 
+		K=600*zone.percent_shark #on pondere la capacite d'accueil en fonction de la profondeur et du pourcentage de requins qui s'y trouvent
 		e=0.47
 		alpha0=0.4
 		alpha=alpha0*(1+zone.coeff_lat_lum)/(1+zone.coeff_vent_lum)
@@ -59,7 +60,7 @@ class Sea :
 		nb_R=nb_Rn+h*(r*nb_Rn*(1-nb_Rn/K)-alpha*nb_Rn*nb_Pn/(beta+nb_Rn))
 		nb_P=nb_Pn+h*nb_Pn*e*(1-m*nb_Pn/nb_Rn)
 		
-		#Différence sur un pas de temps
+		#Difference sur un pas de temps
 		diff_R=round(nb_R-nb_Rn)
 		diff_P=round(nb_P-nb_Pn)
 		return diff_R,diff_P
@@ -75,6 +76,8 @@ class Sea :
 					z.killSharks(diff_R)
 			else : #Cas ou la population augmente
 					z.newSharks(diff_R)
+		self.adaptNbShark() #met a jour le nb de requin total, 
+				##dans une methode distincte car il faut prendre en compte le cas ou le nb de requin de la zone est inferieur au nb qui doit mourir
 					
 		#Population de predateurs
 		if (diff_P_tot<0):
@@ -98,6 +101,11 @@ class Sea :
 						if (position<z[1] and position>z[0]):
 							self.zones[z].addPredator()				
 			
-			 
+	def adaptNbShark(self):
+		self.nb_sharks=0
+		for z in self.zones.values():
+			 self.nb_sharks+=len(z.sharks)
+		for z in self.zones.values(): #mise a jour des pourcentages de requin dans chaque classe
+			 z.newPercent(nb_sharks)
 
         

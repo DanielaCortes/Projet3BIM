@@ -11,7 +11,7 @@ class Shark :
 	def __init__(self, file_name, zone) :
 		self.position = zone # zone dans laquelle il se trouve #Ajouter une fonction qui determine a partir bioluminescence ou il se trouve ?
 		self.coef_bio = 300 # son coefficient de biolum, valeur a modifier, c est juste une valeur random pour l instant !!!!!
-		self.zone=[0,0]
+		self.zone=[0,0] ###est-ce que cet attribut est important? pas redondant avec position???
 		self.pmute = 0.08   # muting rate, 0.8 par million d annee
 		self.diffentesZones=[[0,100],[100,200]]#...    
 		self.size=0 # len(requin), je sais pas si on en a besoin en fait 

@@ -4,6 +4,16 @@ from Predator import Predator
 
 
 class Zone : 
+	"""attributes 
+	- Depth max
+	- Depth min
+	- some sharks 
+	- percent of sharks of the sea
+	- coeff biolum lateral
+	- coeff biolum ventral
+	- nb of predator in the zone
+	"""
+	
 	
 	def __init__(self, prof_min, prof_max, nb_sharks) :
 		
@@ -11,17 +21,18 @@ class Zone :
 		self.prof_min = prof_min  #0 m
 		self.prof_max = prof_max # 1200 m (cf article )
 		self.sharks=[]
-		self.coeff_lat_lum=0.5 #valeur random a calculer en realite
-		self.coeff_vent_lum=0.5 
-    
+		self.coeff_lat_lum=0 
+		self.coeff_vent_lum=0 
+		self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone
+		self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre. 
+		
 		if (nb_sharks > 0) :
 		
 			for i in xrange (nb_sharks) :
         			I =random.randint(prof_min,prof_max) # se situe aleatoirement dans la zone consideree
-        			##self.sharks.append(Shark( "test.txt", I ))
+        			##self.sharks.append(Shark( "test.txt", I )) # /!\ /!\ /!\ Mis en commentaire pour pouvoir compiler.
 			
-		self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre. Je pense que c'est plus simple comme ca.
-		## En fait, peu importe leur position dans la zone.
+
 		
 	def killSharks (self, nb_s) :  #on fournit le nombre de requins a tuer
 
@@ -70,3 +81,7 @@ class Zone :
 		
 	def killPredator (self) :
 		self.predators-=1
+
+	def newPercent(self,nStot): #nStot : nb total of shark
+		self.percent_shark=len(self.sharks)/nStot
+		
