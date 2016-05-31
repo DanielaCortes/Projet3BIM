@@ -30,7 +30,7 @@ class Zone :
 		
 			for i in xrange (nb_sharks) :
         			I =random.randint(prof_min,prof_max) # se situe aleatoirement dans la zone consideree
-        			##self.sharks.append(Shark( "test.txt", I )) # /!\ /!\ /!\ Mis en commentaire pour pouvoir compiler.
+        			#self.sharks.append(Shark( "test.txt", I )) # a mettre a jour non adapte a l'init de shark
 			
 
 		
