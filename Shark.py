@@ -1,7 +1,7 @@
 import random
 from scipy import misc
 from copy import *
-
+import math
 
 class Shark : 
 	""" attributes :
@@ -12,18 +12,19 @@ class Shark :
 	"""
 	
 	def __init__(self, zone) :
-		self.position = zone # zone dans laquelle il se trouve #Ajouter une fonction qui determine a partir bioluminescence ou il se trouve ?
+		self.position = 0 #profondeur exacte
 		self.coef_bio = 300 # son coefficient de biolum, valeur a modifier, c est juste une valeur random pour l instant !!!!!
-		self.zone=[0,0] ###est-ce que cet attribut est important? pas redondant avec position???
+		self.zone = zone ###est-ce que cet attribut est important? pas redondant avec position???
+		#zone = [prof_min de la zone, prof_max de la zone]
 		self.pmute = 0.08   # muting rate, 0.8 par million d annee
-		self.diffentesZones=[[0,100],[100,200]]#...    
 		self.size=0 # len(requin), je sais pas si on en a besoin en fait 
 		self.lateral_bio=0 # the intraspecific recognition one
 		self.ventral_bio=0 # camouflage one
+		self.tab_ventral = []
+		self.tab_lateral = []
+		self.pap = 0
+		self.position_ideale = 0
     
-    #Lecture du ventre du requin 
-            
-		self.bioluminescence = self.updateBiolum()
             
 	def ventral_lateralBio(self, file_name1, file_name2):
 		if "lateral" in file_name1:
@@ -81,32 +82,31 @@ class Shark :
 				y = y - 1
 			x -= 1 
 		tableau_ventral, tableau_lateral = tableaux[0][1], tableaux[1][1]
+		temp = 0
 		for i in range (len(tableau_lateral)):
 			for j in range (len(tableau_lateral[0])):
 				if tableau_lateral[i][j] > 0:
-					self.size += 1
+					temp += 1
 					self.lateral_bio += tableau_lateral[i][j]
+		self.size += temp * 2
 		for i in range (len(tableau_ventral)):
 			for j in range (len(tableau_ventral[0])):
 				if tableau_ventral[i][j] > 0:
 					self.size += 1
 					self.ventral_bio += tableau_ventral[i][j]
-
-
+		self.lateral_bio *= 2
+		self.tab_ventral = tableau_ventral
+		self.tab_lateral = tableau_lateral
+		self.pap = (self.lateral_bio + self.ventral_bio)/self.size
 
 
 	def updateBiolum(self) : 
-		return self.lateral_bio*self.coef_bio + self.ventral_bio*self.coef_bio
+		self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
   
-	def zone(self) : 
-		for z in self.diffentesZones :
-			if(self.position>=z[0] and self.position<z[1]) : 
- 				self.zone= z
-        
     
   
-	def initZone(self) : #donne la profondeur initiale en fonction de la proportion de requin recouvert par les photophores
-		self.position=exp(2.31)*(self.ventralBio/self.size)^(-0.564)  
+	def calculProfondeur(self) : #donne la profondeur initiale en fonction de la proportion de requin recouvert par les photophores
+		self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31) 
     
       
 	def toMute (self) : # mute fluorescent parts ( plus de cas de figures genre mutation non fluorescentes ou alors une fluorescence au profit de l'autre ?
@@ -116,11 +116,7 @@ class Shark :
 				self.lateral_bio +=1 #comment varie la bioluminsecence quand on mute ? On ajoute juste 1
 			elif(mute > self.pmute/2) :
 				self.ventral_bio +=1
-				
-	def toRep(self) : #cree une copie du requin self
-		s = Shark("test.txt", self.position)
-		s.size=self.size
-		s.lateral_bio=self.lateral_bio
-		s.ventral_bio = self.ventral_bio
-		s.updateBiolum()
-		return s
+		
+		
+		
+		
