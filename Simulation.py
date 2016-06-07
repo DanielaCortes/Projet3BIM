@@ -6,7 +6,7 @@ from Zone import Zone
 from Predator import Predator
 
 
-S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],100, (800,999), 600)
+S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, (800,999), 1500)
 #req1 = Shark([800, 999])
 #req1.ventral_lateralBio("requin_lateral.jpg", "requin_lateral.jpg")
 
@@ -16,9 +16,13 @@ pred=0
 print "--PREDATORS--"
 for z in S.zones.values():
     pred+=z.predators
+    print z.predators
 print pred
 
 
+S.predation()
+S.predation()
+S.predation()
 S.predation()
  
 print len(S.zones[(800,999)].sharks)
@@ -51,12 +55,13 @@ print pred
 ## >> Si oui, quel est son type? pas possible d'etre de classe zone car import shark dans zone et import zone dans shark pose probleme
 ## >> Doit etre de type tupple?
 
-#P2 : Revoir totalement newshark
+#P2 : Revoir newshark
 ## >> quel est la condition pour ajouter des requins dans candidate (pour l'instant en commentaire, tous les requins sont candidats)
 ## >> ancienne methode rajoutait autant de requins qu'il y avait de candidats. il ne faut en rajouter que nb_s : normalement corriger
 
 #P3 : Eventuellement penser a prendre en compte dans kill shark le cas ou le nb de requin a tuer passer en parametre est superieur au nb de requin present. 
 ## >> dans ce cas, tuer toute la population direct sans autre calcul
+## >> + verifier conditions
 
 ####Commentaires
 
@@ -65,5 +70,5 @@ print pred
 # Remettre a 0.0 les coeff de biolum dans l'init de zone (modifier pour tester predation)
 # Remettre a 0.0 les coeff de biolum et size dans l'init de shark
 
-#Kill shark non teste
+
 

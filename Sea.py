@@ -71,17 +71,18 @@ class Sea :
 
 			#Population de requin
 			if (diff_R<0) :#Cas ou la population diminue
-					z.killSharks(diff_R)
+					z.killSharks(int(-diff_R))
 			elif (diff_R>0): #Cas ou la population augmente
 					z.newSharks(diff_R)
 		self.adaptNbShark() #met a jour le nb de requin total 
 
 		#Population de predateurs
 		if (diff_P_tot<0): #La population global de predateur diminue
-			if (len(self.predators)+diff_P_tot>0): #il y a plus de predateurs que de predateurs a tuer
-				pred_candidate=random.choice(self.predators)
-				self.predators.remove(pred_candidate)
-				for z in self.zones.keys():
+			if (len(self.predators)+diff_P_tot>0):#il y a plus de predateurs que de predateurs a tuer
+				for i in range(int(-diff_P_tot)):
+					pred_candidate=random.choice(self.predators)
+					self.predators.remove(pred_candidate)
+					for z in self.zones.keys():
 						if (pred_candidate.position<z[1] and pred_candidate.position>z[0]):
 							self.zones[z].killPredator()
 			else: # il y a moins de predateurs que de predateurs a tuer : on les tue tous
