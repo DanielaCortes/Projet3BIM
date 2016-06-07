@@ -31,6 +31,8 @@ class Zone :
 		self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone
 		self.newPercent(nb_sharks_tot)  # Mise a jour du pourcentage de requins dans la zone        
 
+
+		
 	def killSharks (self, nb_s) :  #on fournit le nombre de requins a tuer
 		death_candidates=[]
 		for i,a in enumerate (self.sharks) :
