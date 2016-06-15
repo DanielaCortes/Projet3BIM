@@ -2,6 +2,7 @@ import random
 from scipy import misc
 from copy import *
 import math
+import matplotlib.pyplot as plt
 
 class Shark : 
 	""" attributes :
@@ -24,7 +25,8 @@ class Shark :
 		self.tab_lateral = []
 		self.pap = 0 #Definition? Yasmina
 		self.position_ideale = 0
-    
+		self.tab_memoire_lateral = []
+		self.tab_memoire_ventral = []
             
 	def ventral_lateralBio(self, file_name1, file_name2):
 		if "lateral" in file_name1:
@@ -95,8 +97,10 @@ class Shark :
 					self.size += 1
 					self.ventral_bio += tableau_ventral[i][j]
 		self.lateral_bio *= 2
-		self.tab_ventral = tableau_ventral
-		self.tab_lateral = tableau_lateral
+		self.tab_ventral = copy(tableau_ventral)
+		self.tab_lateral = copy(tableau_lateral)
+		self.tab_memoire_lateral = copy(tableau_lateral)
+		self.tab_memoire_ventral = copy(tableau_ventral)
 		self.pap = (self.lateral_bio + self.ventral_bio)/self.size
 
 
@@ -115,43 +119,64 @@ class Shark :
 		#biolum ou elle meme biolum
 		#on considere qu'il y a 1/3 de chance que la mutation enleve de la biolum
 		# et 1/3 de chance qu'elle en rajoute et 1/3 de chance qu'elle fasse rien
-		mute = random.random()
-		valeurmodif = 0.01
-		if (mute <= self.pmute) : 
-			if (random.random() <= 0.5):
+		if (random.random() <= self.pmute) : #il y a mutation ?
+			if (random.random() <= 0.5):  # je mute quoi ?
 				amuter = copy(self.tab_ventral)
 				tag = 0
 			else:
 				amuter = copy(self.tab_lateral)
 				tag = 1
-			flag = True
-			while (flag):
-				posx = random.randint(1,len(amuter)-1)
-				posy = random.randint(1, len(amuter[0])-1)
-				#on considere que les 4 coins peuvent pas muter
-				if amuter[posx, posy+1] > 0 or amuter[posx, posy-1] > 0 or amuter[posx+1, posy] > 0 or amuter[posx-1, posy] > 0 :
-					flag = False
-			r = random.random()
-			if (r < 1/3.0):
-				modif = +valeurmodif
-			elif (r < 2/3.0):
-				modif = -valeurmodif
-			else:
-				modif = 0
-			if tag == 0:
-				a = self.tab_ventral[posx, posy] + modif
-				if a > 0 and a < 1:
-					self.tab_ventral[posx, posy] = a
-					print "JE MUTE VENTRAL"
-			else:
-				a = self.tab_lateral[posx, posy] + modif
-				if a > 0 and a < 1:
-					self.tab_lateral[posx, posy] = a
-					print "JE MUTE LATERAL"
-			print "JE MUTE RIEN"
+			modif = random.choice([-0.05, 0.05, 0.0])
+			if modif!=0:
+				flag = True
+				while (flag):
+					posx = random.randint(2, len(amuter)-2)
+					posy = random.randint(2, len(amuter[0])-2)
+					#on considere que les 4 coins peuvent pas muter (des -1 dans tt les cas)
+					if amuter[posx][posy] > 0:
+						flag = False
+					if amuter[posx][posy+1] > 0 or amuter[posx][posy-1] > 0 or amuter[posx+1][posy] > 0 or amuter[posx-1][posy] > 0:
+						flag = False
+				if tag:
+					a = self.tab_ventral[posx][posy] + modif
+					if a >= 0.165 and a <= 1.0:
+						self.tab_ventral[posx][posy] += modif
+				else:
+					a = self.tab_lateral[posx][posy] + modif
+					if a >= 0.165 and a <= 1.0:
+						self.tab_lateral[posx][posy] += modif
 
 
 	def req_final(self):
-		
-		
-		return 0
+		x=0
+		for i in range (len(self.tab_lateral)):
+			for j in range (len(self.tab_lateral[0])):
+				if self.tab_lateral[i][j] < 0:
+					self.tab_lateral[i][j] = 0
+					self.tab_memoire_lateral[i][j] = 0
+				self.tab_lateral[i][j] *= 255
+				self.tab_memoire_lateral[i][j] *=255
+				x+=(self.tab_lateral[i][j] - self.tab_memoire_lateral[i][j])
+		print "difference de bioluminescence lateral = %f"%(x/255)
+		plt.imshow(self.tab_memoire_lateral)
+		plt.show()
+		plt.imshow(self.tab_lateral)
+		plt.show()
+		plt.imshow(self.tab_lateral-self.tab_memoire_lateral)
+		plt.show()
+		y=0
+		for i in range (len(self.tab_ventral)):
+			for j in range (len(self.tab_ventral[0])):
+				if self.tab_ventral[i][j] < 0:
+					self.tab_ventral[i][j] = 0
+					self.tab_memoire_ventral[i][j] = 0
+				self.tab_ventral[i][j] *= 255
+				self.tab_memoire_ventral[i][j] *=255
+				y+=(self.tab_ventral[i][j] - self.tab_memoire_ventral[i][j])
+		print "difference de bioluminescence ventral = %f"%(y/255)
+		plt.imshow(self.tab_memoire_ventral)
+		plt.show()
+		plt.imshow(self.tab_ventral)
+		plt.show()
+		plt.imshow(self.tab_ventral-self.tab_memoire_ventral)
+		plt.show()
