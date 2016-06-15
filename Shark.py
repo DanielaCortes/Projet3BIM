@@ -22,10 +22,10 @@ class Shark :
 		self.ventral_bio=50 # camouflage one
 		self.tab_ventral = []
 		self.tab_lateral = []
-		self.pap = 0 #Definition?
+		self.pap = 0 #Definition : Proportion de photophores sur le requin en pourcentage (nb case lumineuse / taille requin) 
 		self.position_ideale = 0
-
-    
+		self.fit_position = 0 #Plus ce coeff est proche de 0, mieu c'est pour la survie du requin en gros il se fait pas remarquer et survi
+		self.fit_reproduction = 0 #Plus ce coeff est grand, mieu c'est pour la reproduction du requin 
             
 	def ventral_lateralBio(self, file_name1, file_name2):
 		if "lateral" in file_name1:
@@ -107,8 +107,13 @@ class Shark :
     
   
 	def calculProfondeur(self) : #donne la profondeur initiale en fonction de la proportion de requin recouvert par les photophores
-		self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31) 
-    
+		self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31)
+		
+	def updateFitPosition(self):
+		self.fit_position = abs(self.position - self.position_ideale)
+
+	def updateFitReproduction(self): #met a jours la fitness de reproduction mieu quand coeff lateral eleve 
+		self.fit_reproduction = self.lateral_bio/self.ventral_bio
       
 	def toMute (self) : # mute fluorescent parts ( plus de cas de figures genre mutation non fluorescentes ou alors une fluorescence au profit de l'autre ?
 		mute = random.uniform()
