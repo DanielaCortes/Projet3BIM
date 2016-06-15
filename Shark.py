@@ -22,9 +22,8 @@ class Shark :
 		self.ventral_bio=50 # camouflage one
 		self.tab_ventral = []
 		self.tab_lateral = []
-		self.pap = 0 #Definition?
+		self.pap = 0 #Definition? Yasmina
 		self.position_ideale = 0
-
     
             
 	def ventral_lateralBio(self, file_name1, file_name2):
@@ -110,14 +109,49 @@ class Shark :
 		self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31) 
     
       
-	def toMute (self) : # mute fluorescent parts ( plus de cas de figures genre mutation non fluorescentes ou alors une fluorescence au profit de l'autre ?
-		mute = random.uniform()
+	def toMute (self) : #On considere que ventral independant de lateral
+		#et que 50% de chance de muter l'un ou l'autre
+		#on considere qu'une case peut muter que si elle est a cote d'une case 
+		#biolum ou elle meme biolum
+		#on considere qu'il y a 1/3 de chance que la mutation enleve de la biolum
+		# et 1/3 de chance qu'elle en rajoute et 1/3 de chance qu'elle fasse rien
+		mute = random.random()
+		valeurmodif = 0.01
 		if (mute <= self.pmute) : 
-			if (mute <= self.pmute/2) :
-				self.lateral_bio +=1 #comment varie la bioluminsecence quand on mute ? On ajoute juste 1
-			elif(mute > self.pmute/2) :
-				self.ventral_bio +=1
+			if (random.random() <= 0.5):
+				amuter = copy(self.tab_ventral)
+				tag = 0
+			else:
+				amuter = copy(self.tab_lateral)
+				tag = 1
+			flag = True
+			while (flag):
+				posx = random.randint(1,len(amuter)-1)
+				posy = random.randint(1, len(amuter[0])-1)
+				#on considere que les 4 coins peuvent pas muter
+				if amuter[posx, posy+1] > 0 or amuter[posx, posy-1] > 0 or amuter[posx+1, posy] > 0 or amuter[posx-1, posy] > 0 :
+					flag = False
+			r = random.random()
+			if (r < 1/3.0):
+				modif = +valeurmodif
+			elif (r < 2/3.0):
+				modif = -valeurmodif
+			else:
+				modif = 0
+			if tag == 0:
+				a = self.tab_ventral[posx, posy] + modif
+				if a > 0 and a < 1:
+					self.tab_ventral[posx, posy] = a
+					print "JE MUTE VENTRAL"
+			else:
+				a = self.tab_lateral[posx, posy] + modif
+				if a > 0 and a < 1:
+					self.tab_lateral[posx, posy] = a
+					print "JE MUTE LATERAL"
+			print "JE MUTE RIEN"
+
+
+	def req_final(self):
 		
 		
-		
-		
+		return 0
