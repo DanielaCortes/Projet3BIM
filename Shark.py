@@ -26,6 +26,7 @@ class Shark :
 		self.position_ideale = 0
 		self.fit_position = 0 #Plus ce coeff est proche de 0, mieu c'est pour la survie du requin en gros il se fait pas remarquer et survi
 		self.fit_reproduction = 0 #Plus ce coeff est grand, mieu c'est pour la reproduction du requin 
+		self.has_rep = False # pour savoir si le requin s est deja reproduit
             
 	def ventral_lateralBio(self, file_name1, file_name2):
 		if "lateral" in file_name1:
@@ -123,6 +124,8 @@ class Shark :
 			elif(mute > self.pmute/2) :
 				self.ventral_bio +=1
 		
+	def has_Reproduce (self) :
+		self.has_rep = True
 		
 		
 		
