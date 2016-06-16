@@ -41,7 +41,7 @@ class Zone :
 				slat=slat+i.lateral_bio
 				sven=sven+i.ventral_bio
 			self.coeff_lat_lum=slat/len(self.sharks)
-			self.coeff_vent_lum=slat/len(self.sharks)		
+			self.coeff_vent_lum=sven/len(self.sharks)		
 			
 		
 	def killSharks (self, nb_s) :  #on fournit le nombre de requins a tuer
