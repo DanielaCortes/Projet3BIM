@@ -7,30 +7,51 @@ from Predator import Predator
 
 
 S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, (800,999), 1500)
-#req1 = Shark([800, 999])
-#req1.ventral_lateralBio("requin_lateral.jpg", "requin_lateral.jpg")
+req1 = Shark([800, 999])
+req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
 
 
-print len(S.zones[(800,999)].sharks)
-pred=0
-print "--PREDATORS--"
-for z in S.zones.values():
-    pred+=z.predators
-    print z.predators
-print pred
+####################MUTATION################
+#~ print req1.pap
+#~ #mutations d'un seul requin (100 fois)
+#~ for i in range (10000000):
+  #~ req1.toMute()
+
+#~ print req1.pap
+#~ #Pour afficher le requin avant, apres et la difference entre les deux
+#~ req1.req_final()
 
 
-S.predation()
-S.predation()
-S.predation()
-S.predation()
+#######################PREDATOR###############
+#~ print len(S.zones[(800,999)].sharks)
+#~ pred=0
+#~ print "--PREDATORS--"
+#~ for z in S.zones.values():
+    #~ pred+=z.predators
+    #~ print z.predators
+#~ print pred
+
+
+
+
+#~ S.predation()
+#~ S.predation()
+#~ S.predation()
+#~ S.predation()
  
-print len(S.zones[(800,999)].sharks)
-pred=0
-print "--PREDATORS--"
-for z in S.zones.values():
-    pred+=z.predators
-print pred
+#~ print len(S.zones[(800,999)].sharks)
+#~ pred=0
+#~ print "--PREDATORS--"
+#~ for z in S.zones.values():
+    #~ pred+=z.predators
+#~ print pred
+
+
+
+
+
+
+
 
 #initialiser un requin a partir des fichiers images
 #generaliser la population -> sinon trop long
@@ -45,6 +66,7 @@ print pred
 ####Problemes a resoudre - Questions
 
 #P1 : Beaucoup trop long pour initialiser un requin #generaliser la population -> sinon trop long
+#Pas moyen de faire autrement malheureusement
 
 #Q1 : Est-ce qu'on garde le fait que les predateurs sont creer aleatoirement? Possibilite qu'il y ait un nb faible de predateur dans la zone.
 ## >> Possibilite de mettre les predateurs proportionnellement au nb de proie dans chaque zone
