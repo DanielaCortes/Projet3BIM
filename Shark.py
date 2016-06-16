@@ -27,6 +27,9 @@ class Shark :
 		self.position_ideale = 0
 		self.tab_memoire_lateral = []
 		self.tab_memoire_ventral = []
+		self.fit_position = 0 #Plus ce coeff est proche de 0, mieu c'est pour la survie du requin en gros il se fait pas remarquer et survi
+		self.fit_reproduction = 0 #Plus ce coeff est grand, mieu c'est pour la reproduction du requin 
+
             
 	def ventral_lateralBio(self, file_name1, file_name2):
 		if "lateral" in file_name1:
@@ -188,3 +191,9 @@ class Shark :
 		plt.show()
 		plt.imshow(self.tab_ventral-self.tab_memoire_ventral)
 		plt.show()
+		
+	def updateFitPosition(self):
+		self.fit_position = abs(self.position - self.position_ideale)
+
+	def updateFitReproduction(self): #met a jours la fitness de reproduction mieu quand coeff lateral eleve 
+		self.fit_reproduction = self.lateral_bio/self.ventral_bio
