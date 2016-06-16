@@ -31,7 +31,18 @@ class Zone :
 		self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone
 		self.newPercent(nb_sharks_tot)  # Mise a jour du pourcentage de requins dans la zone        
 
-
+	
+	#celui qu'on doit utiliser doit etre la moyenne de tous les requins qui sont dans la zone 
+	def updateCoeffLat (self):
+		slat=0
+		sven=0
+		if(len(self.sharks) !=0):
+			for i in enumerate (self.sharks) :
+				slat=slat+i.lateral_bio
+				sven=sven+i.ventral_bio
+			self.coeff_lat_lum=slat/len(self.sharks)
+			self.coeff_vent_lum=slat/len(self.sharks)		
+			
 		
 	def killSharks (self, nb_s) :  #on fournit le nombre de requins a tuer
 		death_candidates=[]
