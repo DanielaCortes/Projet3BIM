@@ -17,7 +17,7 @@ class Shark :
 		self.coef_bio = 300 # son coefficient de biolum, valeur a modifier, c est juste une valeur random pour l instant !!!!!
 		self.zone = zone
 		#zone = [prof_min de la zone, prof_max de la zone]
-		self.pmute = 0.08   # muting rate, 0.8 par million d annee
+		self.pmute = 0.008   # muting rate, 0.8 par million d annee
 		self.size=200 # len(requin), je sais pas si on en a besoin en fait 
 		self.lateral_bio=0 # the intraspecific recognition one
 		self.ventral_bio=0 # camouflage one
@@ -100,10 +100,10 @@ class Shark :
 					self.size += 1
 					self.ventral_bio += tableau_ventral[i][j]
 		self.lateral_bio *= 2
-		self.tab_ventral = copy(tableau_ventral)
-		self.tab_lateral = copy(tableau_lateral)
-		self.tab_memoire_lateral = copy(tableau_lateral)
-		self.tab_memoire_ventral = copy(tableau_ventral)
+		self.tab_ventral = deepcopy(tableau_ventral)
+		self.tab_lateral = deepcopy(tableau_lateral)
+		self.tab_memoire_lateral = deepcopy(self.tab_lateral)
+		self.tab_memoire_ventral = deepcopy(self.tab_ventral)
 		self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
 
 
@@ -130,7 +130,8 @@ class Shark :
 			else:
 				amuter = copy(self.tab_ventral)
 				tag = 1
-			modif = random.choice([-0.05, 0.05, 0.0]) # je mute de combien ?
+			modif = random.randint(-165, 165) #je mute de combien ?
+			modif /= 1000.0
 			if modif!=0:
 				flag = True
 				while (flag):
@@ -143,20 +144,28 @@ class Shark :
 						flag = False
 				if tag:
 					a = self.tab_ventral[posx][posy] + modif
-					if a >= 0.165 and a <= 1.0:
+					if a > 0 and a <= 1.0:
 						if self.tab_ventral[posx][posy] == 0:
 							self.size += 1
 						self.tab_ventral[posx][posy] += modif
 						self.ventral_bio +=modif
+					elif a <= 0:
+						self.ventral_bio -= self.tab_ventral[posx][posy]
+						self.size -=1
+						self.tab_ventral[posx][posy] = 0.
 				else:
 					a = self.tab_lateral[posx][posy] + modif
-					if a >= 0.165 and a <= 1.0:
+					if a > 0 and a <= 1.0:
 						if self.tab_lateral[posx][posy] == 0:
 							self.size += 1
 						self.tab_lateral[posx][posy] += modif
 						self.lateral_bio += modif
+					elif a <= 0 and a != -1:
+						if self.tab_lateral[posx][posy] > 0 :
+							self.size -= 1
+						self.lateral_bio -= self.tab_lateral[posx][posy]
+						self.tab_lateral[posx][posy] = 0.
 				self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
-
 
 	def req_final(self):
 		x=0
@@ -164,6 +173,7 @@ class Shark :
 			for j in range (len(self.tab_lateral[0])):
 				if self.tab_lateral[i][j] < 0:
 					self.tab_lateral[i][j] = 0
+				if self.tab_memoire_lateral[i][j] < 0:
 					self.tab_memoire_lateral[i][j] = 0
 				self.tab_lateral[i][j] *= 255
 				self.tab_memoire_lateral[i][j] *=255
@@ -180,6 +190,7 @@ class Shark :
 			for j in range (len(self.tab_ventral[0])):
 				if self.tab_ventral[i][j] < 0:
 					self.tab_ventral[i][j] = 0
+				if self.tab_memoire_ventral[i][j] < 0:
 					self.tab_memoire_ventral[i][j] = 0
 				self.tab_ventral[i][j] *= 255
 				self.tab_memoire_ventral[i][j] *=255

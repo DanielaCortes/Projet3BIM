@@ -1,6 +1,5 @@
 import random
 from Shark import Shark
-from Predator import Predator
 import copy
 
 
@@ -94,7 +93,6 @@ class Zone :
 	"""def newSharks (self, nb_s) :  #requins a naitre
 		new_candidates=[]
 		for i, a in enumerate (self.sharks) :
-			#if (a.updateBiolum()< self.prof_max or a.updateBiolum() >self.prof_min) : # a modifier, c est plutot I < a la lumiere de la zone
 				new_candidates.append(a) 
 		random.shuffle(new_candidates)
 		if (len(new_candidates)<nb_s): #si pas assez de vivant, on fait quoi?
@@ -108,7 +106,10 @@ class Zone :
         #peut-etre remelanger new_candidates Ici???
 		for i,a in enumerate(new_candidates) : #ne fonctionne pas, ne rajoute pas un nombre limite de requins.
 			if (i<nb_s) :
-				self.sharks.append(copy.copy(a))"""
+				self.sharks.append(copy.copy(a))
+		for i in xrange(nb_s):
+			self.sharks.append(copy.copy(self.sharks[0]))"""
+        
   #newSharks v2 : par rapport a fitness rep
 	def newSharks (self, nb_s) :  #requins a naitre
 		if (nb_s >= len(self.sharks)) :
