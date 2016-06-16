@@ -23,7 +23,7 @@ class Shark :
 		self.ventral_bio=0 # camouflage one
 		self.tab_ventral = []
 		self.tab_lateral = []
-		self.pap = 0 #Definition? Yasmina
+		self.pap = 0 #Definition : Proportion de photophores
 		self.position_ideale = 0
 		self.tab_memoire_lateral = []
 		self.tab_memoire_ventral = []
