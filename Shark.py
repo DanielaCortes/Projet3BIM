@@ -19,8 +19,8 @@ class Shark :
 		#zone = [prof_min de la zone, prof_max de la zone]
 		self.pmute = 0.008   # muting rate, 0.8 par million d annee
 		self.size=200 # len(requin), je sais pas si on en a besoin en fait 
-		self.lateral_bio=50 # the intraspecific recognition one
-		self.ventral_bio=50 # camouflage one
+		self.lateral_bio=0 # the intraspecific recognition one
+		self.ventral_bio=0 # camouflage one
 		self.tab_ventral = []
 		self.tab_lateral = []
 		self.pap = 0 #Definition? Yasmina
