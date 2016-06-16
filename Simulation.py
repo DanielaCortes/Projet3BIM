@@ -12,14 +12,24 @@ req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
 
 
 ####################MUTATION################
+req1.calculProfondeur()
+req1.updateBiolum()
+print req1.lateral_bio
+print req1.ventral_bio
+
 #~ print req1.pap
+#~ print "\n pos : "
+#~ print req1.position_ideale
 #~ #mutations d'un seul requin (100 fois)
 #~ for i in range (10000000):
   #~ req1.toMute()
-
+#~ req1.calculProfondeur()
 #~ print req1.pap
 #~ #Pour afficher le requin avant, apres et la difference entre les deux
 #~ req1.req_final()
+#~ print "\n pos : "
+#~ print req1.position_ideale
+
 
 
 #######################PREDATOR###############
@@ -30,9 +40,9 @@ req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
     #~ pred+=z.predators
     #~ print z.predators
 #~ print pred
-
-
-
+print (S.zones[(800,999)]).coeff_lat_lum
+S.zones[(800,999)].updateCoeffLat()
+print S.zones[(800,999)].coeff_lat_lum
 
 #~ S.predation()
 #~ S.predation()
