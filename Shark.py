@@ -121,12 +121,12 @@ class Shark :
 		# et 1/3 de chance qu'elle en rajoute et 1/3 de chance qu'elle fasse rien
 		if (random.random() <= self.pmute) : #il y a mutation ?
 			if (random.random() <= 0.5):  # je mute quoi ?
-				amuter = copy(self.tab_ventral)
+				amuter = copy(self.tab_lateral)
 				tag = 0
 			else:
-				amuter = copy(self.tab_lateral)
+				amuter = copy(self.tab_ventral)
 				tag = 1
-			modif = random.choice([-0.05, 0.05, 0.0])
+			modif = random.choice([-0.05, 0.05, 0.0]) # je mute de combien ?
 			if modif!=0:
 				flag = True
 				while (flag):
@@ -164,7 +164,7 @@ class Shark :
 		plt.show()
 		plt.imshow(self.tab_lateral-self.tab_memoire_lateral)
 		plt.show()
-		y=0
+		x=0
 		for i in range (len(self.tab_ventral)):
 			for j in range (len(self.tab_ventral[0])):
 				if self.tab_ventral[i][j] < 0:
@@ -172,8 +172,8 @@ class Shark :
 					self.tab_memoire_ventral[i][j] = 0
 				self.tab_ventral[i][j] *= 255
 				self.tab_memoire_ventral[i][j] *=255
-				y+=(self.tab_ventral[i][j] - self.tab_memoire_ventral[i][j])
-		print "difference de bioluminescence ventral = %f"%(y/255)
+				x+=(self.tab_ventral[i][j] - self.tab_memoire_ventral[i][j])
+		print "difference de bioluminescence ventral = %f"%(x/255)
 		plt.imshow(self.tab_memoire_ventral)
 		plt.show()
 		plt.imshow(self.tab_ventral)

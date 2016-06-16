@@ -8,11 +8,18 @@ from Predator import Predator
 
 S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, (800,999), 1500)
 req1 = Shark([800, 999])
-req1.ventral_lateralBio("requin_lateral.jpg", "requin_lateral.jpg")
+req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
 
-for i in range (10000000):
+print len(req1.tab_ventral)
+print len(req1.tab_ventral[0])
+
+print len(req1.tab_lateral)
+print len(req1.tab_lateral[0])
+
+for i in range (100000):
   req1.toMute()
 req1.req_final()
+
 
 
 #~ print len(S.zones[(800,999)].sharks)
