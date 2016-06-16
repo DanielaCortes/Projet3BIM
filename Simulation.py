@@ -10,18 +10,19 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 req1 = Shark([800, 999])
 req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
 
-print len(req1.tab_ventral)
-print len(req1.tab_ventral[0])
 
-print len(req1.tab_lateral)
-print len(req1.tab_lateral[0])
+####################MUTATION################
+#~ print req1.pap
+#~ #mutations d'un seul requin (100 fois)
+#~ for i in range (10000000):
+  #~ req1.toMute()
 
-for i in range (100000):
-  req1.toMute()
-req1.req_final()
+#~ print req1.pap
+#~ #Pour afficher le requin avant, apres et la difference entre les deux
+#~ req1.req_final()
 
 
-
+#######################PREDATOR###############
 #~ print len(S.zones[(800,999)].sharks)
 #~ pred=0
 #~ print "--PREDATORS--"

@@ -101,7 +101,7 @@ class Shark :
 		self.tab_lateral = copy(tableau_lateral)
 		self.tab_memoire_lateral = copy(tableau_lateral)
 		self.tab_memoire_ventral = copy(tableau_ventral)
-		self.pap = (self.lateral_bio + self.ventral_bio)/self.size
+		self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
 
 
 	def updateBiolum(self) : 
@@ -112,7 +112,8 @@ class Shark :
 	def calculProfondeur(self) : #donne la profondeur initiale en fonction de la proportion de requin recouvert par les photophores
 		self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31) 
     
-      
+
+
 	def toMute (self) : #On considere que ventral independant de lateral
 		#et que 50% de chance de muter l'un ou l'autre
 		#on considere qu'une case peut muter que si elle est a cote d'une case 
@@ -140,11 +141,18 @@ class Shark :
 				if tag:
 					a = self.tab_ventral[posx][posy] + modif
 					if a >= 0.165 and a <= 1.0:
+						if self.tab_ventral[posx][posy] == 0:
+							self.size += 1
 						self.tab_ventral[posx][posy] += modif
+						self.ventral_bio +=modif
 				else:
 					a = self.tab_lateral[posx][posy] + modif
 					if a >= 0.165 and a <= 1.0:
+						if self.tab_lateral[posx][posy] == 0:
+							self.size += 1
 						self.tab_lateral[posx][posy] += modif
+						self.lateral_bio += modif
+				self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
 
 
 	def req_final(self):
