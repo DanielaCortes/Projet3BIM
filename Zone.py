@@ -1,6 +1,5 @@
 import random
 from Shark import Shark
-from Predator import Predator
 import copy
 
 
@@ -21,11 +20,13 @@ class Zone :
 		self.prof_min = prof_min  #0 m
 		self.prof_max = prof_max # 1200 m (cf article )
 		self.sharks=[]
-		self.coeff_lat_lum=0.5 
-		self.coeff_vent_lum=0.9
+		self.coeff_lat_lum=0 
+		self.coeff_vent_lum=0
 		self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre. 
 		if (nb_sharks > 0) :
 			for i in xrange (nb_sharks) :
+        			I = random.randint(prof_min, prof_max) # se situe aleatoirement dans la zone consideree
+        			self.sharks.append(Shark((self.prof_min,self.prof_max))) #Append copie de requin1
               			if (i == 0) :
                 			I = random.randint(prof_min, prof_max) # se situe aleatoirement dans la zone consideree
                 			self.sharks.append(Shark((self.prof_min,self.prof_max)))
@@ -39,9 +40,9 @@ class Zone :
 		slat=0
 		sven=0
 		if(len(self.sharks) !=0):
-			for i in enumerate (self.sharks) :
-				slat=slat+i.lateral_bio
-				sven=sven+i.ventral_bio
+			for i,a in enumerate (self.sharks) :
+				slat=slat+a.lateral_bio
+				sven=sven+a.ventral_bio
 			self.coeff_lat_lum=slat/len(self.sharks)
 			self.coeff_vent_lum=sven/len(self.sharks)		
 			
