@@ -14,12 +14,6 @@ req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
 S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, (800,999), 150,req1)
 
 
-
-
-
-#CREATION MER
-S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, (800,999), 150)
-
 ####################BOUCLE_PRINCIPALE##########################
 #for i in range(100000) : #Temps total à définir
 #    	S.MoveZone()
