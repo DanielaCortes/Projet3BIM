@@ -61,9 +61,9 @@ req1.updateBiolum()
 print req1.lateral_bio
 print req1.ventral_bio
 
-print (S.zones[(800,999)]).coeff_lat_lum
-S.zones[(800,999)].updateCoeffLat()
-print S.zones[(800,999)].coeff_lat_lum
+#~ print (S.zones[(800,999)]).coeff_lat_lum
+#~ S.zones[(800,999)].updateCoeffLat()
+#~ print S.zones[(800,999)].coeff_lat_lum
 
 
 ######################PREDATOR###############

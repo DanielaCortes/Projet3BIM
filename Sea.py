@@ -16,12 +16,21 @@ class Sea :
         self.D=D #profondeur du milieu
         self.zones={} #dico, cle bornes de la zones sous forme de tuple, objet zone
         self.nb_sharks=nb_sharks_
-        for i in xrange (len(zone_)) :
-            if (zone_[i] == starting_I) : #On initialise en ne mettant des requins que dans la premiere zone
-                s = nb_sharks_
-            else :
-                s=0
-            self.zones[zone_[i]]=Zone(zone_[i][0],zone_[i][1],s,nb_sharks_,ori_shark)
+        ori_shark.initProfondeur()
+
+        for key in zone_:
+												if(ori_shark.position>key[0] and ori_shark.position < key[1]):
+																	s = nb_sharks_  
+												else :
+																	s=0
+												self.zones[key]=Zone(key[0],key[1],s,nb_sharks_,ori_shark)									
+															      
+        #~ for i in xrange (len(zone_)) :
+            #~ if (zone_[i] == starting_I) : #On initialise en ne mettant des requins que dans la premiere zone
+                #~ s = nb_sharks_
+            #~ else :
+                #~ s=0
+            #~ self.zones[zone_[i]]=Zone(zone_[i][0],zone_[i][1],s,nb_sharks_,ori_shark)
         self.predators=nb_predators_
         self.adaptNbPred();
   

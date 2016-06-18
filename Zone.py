@@ -22,8 +22,13 @@ class Zone :
 		self.sharks=[]
 		self.coeff_lat_lum=0 
 		self.coeff_vent_lum=0
-		self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre. 
+		self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre.
+		ori_shark.initProfondeur()
 		if (nb_sharks > 0) :
+			print "position de ORi"
+			print ori_shark.position
+			print "position ori ideale"
+			print ori_shark.position_ideale			
 			for i in xrange (nb_sharks) :
 				self.sharks.append(copy.copy(ori_shark))
 		self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone

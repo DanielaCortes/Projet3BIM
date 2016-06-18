@@ -218,3 +218,9 @@ class Shark :
 	
 	def reset_Rep (self) :
 		self.has_rep = False
+	
+	def mise_jour_attributs(self):
+		self.updateFitPosition()
+		self.updateFitReproduction()
+		self.updateBiolum()
+			
