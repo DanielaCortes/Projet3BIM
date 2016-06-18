@@ -33,7 +33,6 @@ req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
 
 
 print req1.pap
-print req1.tab_memoire_lateral[10][10]
 #mutations d'un seul requin (100 fois)
 for i in range (10000000):
   req1.toMute()

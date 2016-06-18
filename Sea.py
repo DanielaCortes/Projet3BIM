@@ -90,3 +90,34 @@ class Sea :
         for z in self.diffentesZones :
             if(self.position>=z[0] and self.position<=z[1]) : 
                  self.zone= z
+
+
+    def comptage(self):
+        req1_ventral = []
+        req1_lateral = []
+        compteur_req1 = []
+        for i in range (len(self.zones)):
+            mean_sharks_ventral = [[0 for i in range (len(self.zones[i].sharks[j].tab_ventral)] for j in range (len(self.zones[i].sharks[j].tab_ventral[0]))]
+            mean_sharks_lateral = [[0 for i in range (len(self.zones[i].sharks[j].tab_lateral)] for j in range (len(self.zones[i].sharks[j].tab_lateral[0]))]
+            for j in range (len(self.zones.sharks)):
+                mean_sharks_ventral += self.zones[i].sharks[j].tab_ventral
+                mean_sharks_lateral += self.zones[i].sharks[j].tab_lateral
+            mean_sharks_ventral /= float(len(self.zones[i].sharks))
+            mean_sharks_lateral /= float(len(self.zones[i].sharks))
+            compteur_req1.apppend(len(self.zones[i].sharks))
+            req1_ventral.append(mean_sharks_ventral)
+            req1_lateral.append(mean_sharks_lateral)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
