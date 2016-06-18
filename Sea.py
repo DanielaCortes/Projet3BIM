@@ -82,10 +82,21 @@ class Sea :
         for z in self.zones.values() : 
             z.predators=0 #remise a zero du nombre de predateurs
             for j in xrange (int(z.percent_shark*self.predators)):
-                z.addPredator()    
+                z.addPredator()
 
 
-
+    def MoveZone(self):
+					for cleZ, Z in self.zones.items():
+						[zdessous,zdessus]=Z.moveShark();
+						if(cleZ!=(0,199) and cleZ!=(1000,1199)):
+							self.zones[(cleZ[0]-200,cleZ[1]-200)].sharks.extend(zdessous)
+							self.zones[(cleZ[0]+200,cleZ[1]+200)].sharks.extend(zdessus)
+						if(cleZ==(0,199)):
+							self.zones[(cleZ[0]+200,cleZ[1]+200)].sharks.extend(zdessus)
+						if(cleZ==(1000,1199)):	
+							self.zones[(cleZ[0]-200,cleZ[1]-200)].sharks.extend(zdessous)
+									
+									
     def zone(self) : 
         for z in self.diffentesZones :
             if(self.position>=z[0] and self.position<=z[1]) : 

@@ -13,7 +13,7 @@ class Shark :
 	"""
 	
 	def __init__(self, zone) :
-		self.position = 0 #profondeur exacte
+		self.position = 900 #self.calculProfondeur() #profondeur exacte
 		self.coef_bio = 300 # son coefficient de biolum, valeur a modifier, c est juste une valeur random pour l instant !!!!!
 		self.zone = zone
 		#zone = [prof_min de la zone, prof_max de la zone]
@@ -30,6 +30,7 @@ class Shark :
 		self.fit_position = 0 #Plus ce coeff est proche de 0, mieu c'est pour la survie du requin en gros il se fait pas remarquer et survi
 		self.fit_reproduction = 0 #Plus ce coeff est grand, mieu c'est pour la reproduction du requin 
 		self.has_rep = False # pour savoir si le requin s est deja reproduit
+
 
 	def ventral_lateralBio(self, file_name1, file_name2):
 		if "lateral" in file_name1:
@@ -106,16 +107,14 @@ class Shark :
 		self.tab_memoire_ventral = deepcopy(self.tab_ventral)
 		self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
 
-
 	def updateBiolum(self) : 
 		self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
-  
-    
-  
-	def calculProfondeur(self) : #donne la profondeur initiale en fonction de la proportion de requin recouvert par les photophores
-		self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31) 
-    
 
+	def calculProfondeur(self) : #donne la profondeur ideale en fonction de la proportion de requin recouvert par les photophores
+		self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31) 
+
+	def initProfondeur(self) : 
+		self.position= self.position_ideale #donne la position initiale du requin
 
 	def toMute (self) : #On considere que ventral independant de lateral
 		#et que 50% de chance de muter l'un ou l'autre
@@ -209,8 +208,5 @@ class Shark :
 	def updateFitReproduction(self): #met a jours la fitness de reproduction mieu quand coeff lateral eleve 
 		self.fit_reproduction = self.lateral_bio/self.ventral_bio
 
-		
 	def has_Reproduce (self) :
 		self.has_rep = True
-		
-

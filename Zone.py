@@ -18,7 +18,7 @@ class Zone :
 	def __init__(self, prof_min, prof_max, nb_sharks,nb_sharks_tot) :
 		#limites zones
 		self.prof_min = prof_min  #0 m
-		self.prof_max = prof_max # 1200 m (cf article )
+		self.prof_max = prof_max # 1200 m (cf article)
 		self.sharks=[]
 		self.coeff_lat_lum=0 
 		self.coeff_vent_lum=0
@@ -146,3 +146,26 @@ class Zone :
 	def newPercent(self,nStot): #nStot : nb total of shark
 		self.percent_shark=len(self.sharks)/nStot
 		
+		
+	def moveShark(self):
+		zdessous=[]#requins a mettre dans zone dessous
+		zdessus=[] #requins a mettre au dessus
+		indices=[] #indices requins a eliminer
+		for i,a in enumerate (self.sharks):
+			r=random.randint(-20, 20)
+			#avec ca jai un peu peur qu'ils se retrouvent sur les bord mais on peut pas trop faire de conditions torriques
+			if(a.position+r>0  and a.position+r<1200 ): 
+				a.position+=r
+				if( a.position<self.prof_min ):
+					indices.append(i)
+					zdessous.append(a)
+				if(a.position>self.prof_max): 
+					indices.append(i)
+					zdessus.append(a)	
+		for i,j in enumerate(indices) :
+			del self.sharks[j-i] #permet a chaque fois quon suprime element decale l indice a supprimer
+		return ([zdessous, 	zdessus])
+			
+				
+			
+			
