@@ -15,7 +15,7 @@ class Zone :
 	"""
 	
 	
-	def __init__(self, prof_min, prof_max, nb_sharks,nb_sharks_tot) :
+	def __init__(self, prof_min, prof_max, nb_sharks,nb_sharks_tot,ori_shark) :
 		#limites zones
 		self.prof_min = prof_min  #0 m
 		self.prof_max = prof_max # 1200 m (cf article)
@@ -25,13 +25,7 @@ class Zone :
 		self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre. 
 		if (nb_sharks > 0) :
 			for i in xrange (nb_sharks) :
-        			I = random.randint(prof_min, prof_max) # se situe aleatoirement dans la zone consideree
-        			self.sharks.append(Shark((self.prof_min,self.prof_max))) #Append copie de requin1
-              			if (i == 0) :
-                			I = random.randint(prof_min, prof_max) # se situe aleatoirement dans la zone consideree
-                			self.sharks.append(Shark((self.prof_min,self.prof_max)))
-              			else :
-               				self.sharks.append(copy.copy(self.sharks[0]))
+				self.sharks.append(copy.copy(ori_shark))
 		self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone
 		self.newPercent(nb_sharks_tot)  # Mise a jour du pourcentage de requins dans la zone        
 
@@ -125,10 +119,13 @@ class Zone :
 				for j,a in enumerate (self.sharks) :
 					if (a.fit_reproduction == fmax and a.has_rep == False) : 
 						new_candidates.append(j)
-					random.shuffle(new_candidates) # on reproduit aleatoirement un des requins qui a la fitness position max
-					fitness[new_candidates[0]] = -1
-					self.sharks[new_candidates[0]].has_Reproduce()
-					self.sharks.append(copy.copy(self.sharks[new_candidates[0]]))
+				random.shuffle(new_candidates) # on reproduit aleatoirement un des requins qui a la fitness position max
+				fitness[new_candidates[0]] = -1
+				self.sharks[new_candidates[0]].has_Reproduce()
+				self.sharks.append(copy.copy(self.sharks[new_candidates[0]]))
+				self.sharks[-1].toMute()
+		for i,a in enumerate (self.sharks) :
+			a.reset_Rep();
 
     
     

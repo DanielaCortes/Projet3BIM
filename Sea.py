@@ -12,7 +12,7 @@ class Sea :
     - some predators
     - nb of shark in the Sea
     """
-    def __init__(self,D,zone_,nb_sharks_,starting_I,nb_predators_) : #zone_ c'est les limites de chaque zones
+    def __init__(self,D,zone_,nb_sharks_,starting_I,nb_predators_,ori_shark) : #zone_ c'est les limites de chaque zones, ori_shark c est notre requin modele de base
         self.D=D #profondeur du milieu
         self.zones={} #dico, cle bornes de la zones sous forme de tuple, objet zone
         self.nb_sharks=nb_sharks_
@@ -21,7 +21,7 @@ class Sea :
                 s = nb_sharks_
             else :
                 s=0
-            self.zones[zone_[i]]=Zone(zone_[i][0],zone_[i][1],s,nb_sharks_)
+            self.zones[zone_[i]]=Zone(zone_[i][0],zone_[i][1],s,nb_sharks_,ori_shark)
         self.predators=nb_predators_
         self.adaptNbPred();
   

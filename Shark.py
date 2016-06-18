@@ -32,6 +32,7 @@ class Shark :
 		self.has_rep = False # pour savoir si le requin s est deja reproduit
 
 
+
 	def ventral_lateralBio(self, file_name1, file_name2):
 		if "lateral" in file_name1:
 			temp = file_name1
@@ -105,7 +106,11 @@ class Shark :
 		self.tab_lateral = deepcopy(tableau_lateral)
 		self.tab_memoire_lateral = deepcopy(self.tab_lateral)
 		self.tab_memoire_ventral = deepcopy(self.tab_ventral)
-		self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
+		self.updateBiolum()
+		self.calculProfondeur()
+		self.updateFitPosition()
+		self.updateFitReproduction()
+
 
 	def updateBiolum(self) : 
 		self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
@@ -210,3 +215,6 @@ class Shark :
 
 	def has_Reproduce (self) :
 		self.has_rep = True
+	
+	def reset_Rep (self) :
+		self.has_rep = False
