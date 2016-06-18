@@ -1,5 +1,6 @@
 import random
 import math
+from copy import *
 
 from Shark import Shark
 from Zone import Zone
