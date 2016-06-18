@@ -7,13 +7,26 @@ import copy
 
 
 
+#CREER ICI LE REQUIN MODELE
 req1 = Shark([800, 999])
 req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
+
 S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, (800,999), 150,req1)
 
 
 
+
+
+#CREATION MER
+S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, (800,999), 150)
+
+####################BOUCLE_PRINCIPALE##########################
+#for i in range(100000) : #Temps total à définir
+#    	S.MoveZone()
+#     S.predation()
+     
 ####################MUTATION################
+
 
 #print req1.pap
 ##mutations d'un seul requin (100 fois)
@@ -35,6 +48,15 @@ S.predation()
 #print len(S.zones[(800,999)].sharks)
 
 
+
+req1 = Shark([800, 999])
+req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")
+
+print req1.pap
+print "\n pos : "
+print req1.position_ideale
+
+
 #mutations d'un seul requin (100 fois)
 for i in range (10000000):
   req1.toMute()
@@ -45,8 +67,18 @@ req1.updateBiolum()
 print req1.lateral_bio
 print req1.ventral_bio
 
+print (S.zones[(800,999)]).coeff_lat_lum
+S.zones[(800,999)].updateCoeffLat()
+print S.zones[(800,999)].coeff_lat_lum
 
 
+######################PREDATOR###############
+#print len(S.zones[(800,999)].sharks)
+#S.predation()
+#print len(S.zones[(800,999)].sharks)
+
+
+######################MOUVEMENT###############
 #~ #ICI on fait bouger les requins sur une zone !!!
 #~ for i in range(10): 
 	#~ S.zones[(800,999)].moveShark()
@@ -62,25 +94,3 @@ print "\n Apres move \n"
 for i,Z in S.zones.items():
 	print i,len(Z.sharks)
 	
-
-#~ print req1.pap
-#~ print "\n pos : "
-#~ print req1.position_ideale
-#~ #mutations d'un seul requin (100 fois)
-#~ for i in range (10000000):
-  #~ req1.toMute()
-#~ req1.calculProfondeur()
-#~ print req1.pap
-#~ #Pour afficher le requin avant, apres et la difference entre les deux
-#~ req1.req_final()
-#~ print "\n pos : "
-#~ print req1.position_ideale
-
-
-
-
-print (S.zones[(800,999)]).coeff_lat_lum
-S.zones[(800,999)].updateCoeffLat()
-print S.zones[(800,999)].coeff_lat_lum
-
-
