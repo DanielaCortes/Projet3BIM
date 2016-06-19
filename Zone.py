@@ -33,6 +33,7 @@ class Zone :
 				self.sharks.append(copy.copy(ori_shark))
 		self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone
 		self.newPercent(nb_sharks_tot)  # Mise a jour du pourcentage de requins dans la zone        
+		self.updateCoeffLat()
 
 	#celui qu'on doit utiliser doit etre la moyenne de tous les requins qui sont dans la zone 
 	def updateCoeffLat (self):
