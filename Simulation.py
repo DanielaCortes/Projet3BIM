@@ -20,7 +20,7 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 #    S.predation()
 #    for z in S.zones.values():
 #        z.updateCoeffLat()
-     
+   
 
 
 #req1 = Shark([800, 999])
@@ -47,9 +47,6 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 
 
 ######################PREDATOR###############
-#print len(S.zones[(800,999)].sharks)
-#S.predation()
-#print len(S.zones[(800,999)].sharks)
 #for i,Z in S.zones.items():
 #	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
 #S.predation()
