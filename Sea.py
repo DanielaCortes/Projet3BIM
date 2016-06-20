@@ -1,14 +1,13 @@
 import random
 import math
 from copy import *
-
 from Shark import Shark
 from Zone import Zone
 
 class Sea :
-    """attributes 
+    """attributes
     - D depth
-    - zones with sharks 
+    - zones with sharks
     - some predators
     - nb of shark in the Sea
     """
@@ -20,13 +19,13 @@ class Sea :
 
         for key in zone_:
             if(ori_shark.position>key[0] and ori_shark.position < key[1]):
-                s = nb_sharks_  
+                s = nb_sharks_
             else :
                 s=0
-            self.zones[key]=Zone(key[0],key[1],s,nb_sharks_,ori_shark)									
+            self.zones[key]=Zone(key[0],key[1],s,nb_sharks_,ori_shark)
         self.predators=nb_predators_
         self.adaptNbPred();
-  
+
     def Evo_population (self,zone) : # calculate how many sharks die or give birth, idem predators
         if (zone.percent_shark>0):
             r0=0.47
@@ -65,43 +64,43 @@ class Sea :
                 z.killSharks(int(-diff_R))
             elif (diff_R>0): #Cas ou la population augmente
                 z.newSharks(int(diff_R))
-        self.adaptNbShark() #met a jour le nb de requin total 
+        self.adaptNbShark() #met a jour le nb de requin total
 
         #Population de predateur
         self.predators+=+diff_P_tot
         if(self.predators<0):
             self.predators=0
-        self.adaptNbPred() #met a jour le nb de predateur par zone      
-      
+        self.adaptNbPred() #met a jour le nb de predateur par zone
+
     def adaptNbShark(self):
         self.nb_sharks=0
         for z in self.zones.values():
              self.nb_sharks+=len(z.sharks)
         for z in self.zones.values(): #mise a jour des pourcentages de requin dans chaque classe
             z.newPercent(self.nb_sharks)
-    
+
     def adaptNbPred(self):
-        for z in self.zones.values() : 
+        for z in self.zones.values() :
             z.predators=0 #remise a zero du nombre de predateurs
             for j in xrange (int(z.percent_shark*self.predators)):
                 z.addPredator()
 
 
     def MoveZone(self):
-					for cleZ, Z in self.zones.items():
-						[zdessous,zdessus]=Z.moveShark();
-						if(cleZ!=(0,199) and cleZ!=(1000,1199)):
-							self.zones[(cleZ[0]-200,cleZ[1]-200)].sharks.extend(zdessous)
-							self.zones[(cleZ[0]+200,cleZ[1]+200)].sharks.extend(zdessus)
-						if(cleZ==(0,199)):
-							self.zones[(cleZ[0]+200,cleZ[1]+200)].sharks.extend(zdessus)
-						if(cleZ==(1000,1199)):	
-							self.zones[(cleZ[0]-200,cleZ[1]-200)].sharks.extend(zdessous)
-									
-									
-    def zone(self) : 
+                    for cleZ, Z in self.zones.items():
+                        [zdessous,zdessus]=Z.moveShark();
+                        if(cleZ!=(0,199) and cleZ!=(1000,1199)):
+                            self.zones[(cleZ[0]-200,cleZ[1]-200)].sharks.extend(zdessous)
+                            self.zones[(cleZ[0]+200,cleZ[1]+200)].sharks.extend(zdessus)
+                        if(cleZ==(0,199)):
+                            self.zones[(cleZ[0]+200,cleZ[1]+200)].sharks.extend(zdessus)
+                        if(cleZ==(1000,1199)):
+                            self.zones[(cleZ[0]-200,cleZ[1]-200)].sharks.extend(zdessous)
+
+
+    def zone(self) :
         for z in self.diffentesZones :
-            if(self.position>=z[0] and self.position<=z[1]) : 
+            if(self.position>=z[0] and self.position<=z[1]) :
                  self.zone= z
 
 
