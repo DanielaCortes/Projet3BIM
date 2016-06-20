@@ -169,8 +169,10 @@ class Shark :
                             self.size -= 1
                         self.lateral_bio -= self.tab_lateral[posx][posy]
                         self.tab_lateral[posx][posy] = 0.
-                self.updateBiolum()
-                self.updateFitReproduction()
+        self.updateBiolum()
+        self.calculProfondeur()
+        self.updateFitPosition()
+        self.updateFitReproduction()
 
     def req_final(self):
         x=0
