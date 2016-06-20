@@ -63,8 +63,9 @@ class Zone :
             death_candidates.append(j)
         random.shuffle(death_candidates) # on tue aleatoirement un des requins qui a la fitness position max
         fitness.pop(death_candidates[0])
-        self.sharks.pop(death_candidates[0])   
-            
+        #~ self.sharks.pop(self.sharks.index(death_candidates[0]))
+        print len(self.sharks)
+        del self.sharks[self.sharks.index(death_candidates[0])-1]
 
   #newSharks v2 : par rapport a fitness rep
   def newSharks (self, nb_s) :  #requins a naitre
@@ -133,3 +134,18 @@ class Zone :
       del self.sharks[j-i] #permet a chaque fois quon suprime element decale l indice a supprimer
     return ([zdessous,  zdessus])
 
+
+  def req_final(self):
+    if len(self.sharks) != 0:
+      tab_zone_lateral = [[0 for i in range (len(self.sharks[0].tab_lateral))] for i in range (len(self.sharks[0].tab_lateral[0]))]
+      tab_zone_ventral = [[0 for i in range (len(self.sharks[0].tab_ventral))] for i in range (len(self.sharks[0].tab_ventral[0]))]
+      for req in self.sharks:
+        for i in range (len(req.tab_lateral)):
+          for j in range (len(req.tab_lateral[0])):
+            tab_zone_lateral[i][j] += req.tab_lateral[i][j] / len(self.sharks)
+        for i in range (len(req.tab_ventral)):
+          for j in range (len(req.tab_ventral[0])):
+            tab_zone_ventral[i][j] += req.tab_ventral[i][j] / len(self.sharks)
+      return tab_zone_ventral, tab_zone_lateral
+    else:
+      return 0

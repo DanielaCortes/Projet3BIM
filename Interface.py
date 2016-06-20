@@ -20,3 +20,6 @@ class Interface(Frame):
     On change la valeur du label message."""
     self.nb_clic += 1
     self.message["text"] = "Vous avez clique {} fois.".format(self.nb_clic)
+    
+    
+
