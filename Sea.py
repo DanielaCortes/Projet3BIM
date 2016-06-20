@@ -47,7 +47,7 @@ class Sea :
             #Difference sur un pas de temps
             diff_R=round(nb_R-nb_Rn)
             diff_P=round(nb_P-nb_Pn)
-            return diff_R,diff_P
+            return [diff_R,diff_P]
         else :
             return 0,0
 
@@ -57,7 +57,11 @@ class Sea :
     def predation(self):
         diff_P_tot=0;
         for z in self.zones.values():
-            diff_R,diff_P=self.Evo_population(z)
+            diff_R, diff_P = 0, 0
+            for k in xrange(10):
+                a= self.Evo_population(z)
+                diff_R += a[0]
+                diff_P += a[1]
             diff_P_tot+=diff_P
 
             #Population de requin
