@@ -5,7 +5,7 @@ from Shark import Shark
 from Zone import Zone
 import copy
 
-###/!\ Ne pas enlever les commentaires sur predation tant que les coeff de lum n'ont pas été modifies
+###/!\ Ne pas enlever les commentaires sur predation tant que les coeff de lum n'ont pas ete modifies
 
 #CREER ICI LE REQUIN MODELE
 req1 = Shark([800, 999])
@@ -26,6 +26,7 @@ for i in range(10000) : #Temps total a definir
 print "----APRES BOUCLE ----"
 for i,Z in S.zones.items():
 	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum   
+
 
 
 #req1 = Shark([800, 999])
@@ -53,28 +54,28 @@ for i,Z in S.zones.items():
 
 ######################PREDATOR###############
 #for i,Z in S.zones.items():
-#	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
+# print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
 #for i in range(1):
 #    S.predation()
 #    for z in S.zones.values():
 #        z.updateCoeffLat()
 #for i,Z in S.zones.items():
-#	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
+# print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
 
 
 ######################MOUVEMENT###############
 #~ #ICI on fait bouger les requins sur une zone !!!
 #~ for i in range(10): 
-	#~ S.zones[(800,999)].moveShark()
+  #~ S.zones[(800,999)].moveShark()
 
 #ICI on fait bouger les requin sur tout l ocean !!! 
 #on compare avant apres et on voit bien qu ils ont bouge
 #print "\n Avant de move \n" 
 #for i,Z in S.zones.items():
-#	print i,len(Z.sharks)
+# print i,len(Z.sharks)
 #for i in range(1000):
-#	S.MoveZone()
-#print "\n Apres move \n" 	
+# S.MoveZone()
+#print "\n Apres move \n"   
 #for i,Z in S.zones.items():
-#	print i,len(Z.sharks)
-#	
+# print i,len(Z.sharks)
+# 
