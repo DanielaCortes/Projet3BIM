@@ -15,7 +15,7 @@ class Shark :
     def __init__(self, zone) :
         self.position = 900 #self.calculProfondeur() #profondeur exacte
         self.zone = zone
-        self.pmute = 1   # muting rate, 0.8 par million d annee
+        self.pmute = 0.08   # muting rate, 0.8 par million d annee
         self.size=200 # len(requin), je sais pas si on en a besoin en fait 
         self.lateral_bio=0 # the intraspecific recognition one
         self.ventral_bio=0 # camouflage one
@@ -98,7 +98,7 @@ class Shark :
         for i in range (len(tableau_lateral)):
             for j in range (len(tableau_lateral[0])):
                 if tableau_lateral[i][j] > 0.1:
-                  cases_biolum +=1
+                  cases_biolum += 1
                 if tableau_lateral[i][j] >=0:
                   size_temp +=1
                   coef_lum += tableau_lateral[i][j]
@@ -150,41 +150,44 @@ class Shark :
             if (random.random() <= 0.5):  # je mute quoi ?
                 amuter = copy(self.tab_lateral)
                 tag = 0
+                nombre = random.randint(1, self.cases_biolum_lateral)
             else:
                 amuter = copy(self.tab_ventral)
                 tag = 1
-            modif = random.randint(-165, 165) #je mute de combien ?
-            modif /= 1000.0
-            if modif!=0:
-                flag = True
-                while (flag):
-                    posx = random.randint(2, len(amuter)-2)
-                    posy = random.randint(2, len(amuter[0])-2)
-                    #on considere que les 4 coins peuvent pas muter (des -1 dans tt les cas)
-                    if amuter[posx][posy] > 0:
-                        flag = False
-                    if amuter[posx][posy+1] > 0 or amuter[posx][posy-1] > 0 or amuter[posx+1][posy] > 0 or amuter[posx-1][posy] > 0:
-                        flag = False
-                if tag:
-                    a = self.tab_ventral[posx][posy] + modif
-                    if a > 0 and a <= 1.0:
-                        self.tab_ventral[posx][posy] += modif
-                        self.coef_biolum_ventral += modif
-                    elif a <= 0:
-                        self.coef_biolum_ventral -= self.tab_ventral[posx][posy]
-                        self.cases_biolum_ventral -= 1
-                        self.tab_ventral[posx][posy] = 0.
-                    self.ventral_bio = self.coef_biolum_ventral / self.cases_biolum_ventral
-                else:
-                    a = self.tab_lateral[posx][posy] + modif
-                    if a > 0 and a <= 1.0:
-                        self.tab_lateral[posx][posy] += modif
-                        self.cases_biolum_lateral += modif
-                    elif a <= 0 and a != -1:
-                        self.coef_biolum_lateral -= self.tab_lateral[posx][posy]
-                        self.cases_biolum_lateral -= 1
-                        self.tab_lateral[posx][posy] = 0.
-                    self.lateral_bio = self.coef_biolum_lateral / self.cases_biolum_lateral
+                nombre = random.randint(1, self.cases_biolum_ventral)
+            for x in range (nombre):
+                modif = random.randint(-165, 165) #je mute de combien ?
+                modif /= 1000.0
+                if modif!=0:
+                    flag = True
+                    while (flag):
+                        posx = random.randint(2, len(amuter)-2)
+                        posy = random.randint(2, len(amuter[0])-2)
+                        #on considere que les 4 coins peuvent pas muter (des -1 dans tt les cas)
+                        if amuter[posx][posy] > 0:
+                            flag = False
+                        if amuter[posx][posy+1] > 0 or amuter[posx][posy-1] > 0 or amuter[posx+1][posy] > 0 or amuter[posx-1][posy] > 0:
+                            flag = False
+                    if tag:
+                        a = self.tab_ventral[posx][posy] + modif
+                        if a > 0 and a <= 1.0:
+                            self.tab_ventral[posx][posy] += modif
+                            self.coef_biolum_ventral += modif
+                        elif a <= 0:
+                            self.coef_biolum_ventral -= self.tab_ventral[posx][posy]
+                            self.cases_biolum_ventral -= 1
+                            self.tab_ventral[posx][posy] = 0.
+                        self.ventral_bio = self.coef_biolum_ventral / self.cases_biolum_ventral
+                    else:
+                        a = self.tab_lateral[posx][posy] + modif
+                        if a > 0 and a <= 1.0:
+                            self.tab_lateral[posx][posy] += modif
+                            self.coef_biolum_lateral += modif
+                        elif a <= 0 and a != -1:
+                            self.coef_biolum_lateral -= self.tab_lateral[posx][posy]
+                            self.cases_biolum_lateral -= 1
+                            self.tab_lateral[posx][posy] = 0.
+                        self.lateral_bio = self.coef_biolum_lateral / self.cases_biolum_lateral
         self.updateBiolum()
         self.calculProfondeur()
         self.updateFitPosition()

@@ -5,6 +5,7 @@ from Shark import Shark
 from Zone import Zone
 from Interface import Interface
 from Tkinter import *
+import matplotlib.pyplot as plt
 import copy
 
 ###/!\ Ne pas enlever les commentaires sur predation tant que les coeff de lum n'ont pas ete modifies
@@ -17,6 +18,8 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 
 
 ####################BOUCLE_PRINCIPALE##########################
+nb_req = []
+temps = []
 print "----AVANT BOUCLE ----"
 for i,Z in S.zones.items():
     print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
@@ -25,12 +28,14 @@ for i in range(100000) : #Temps total a definir
     S.predation()
     for z in S.zones.values():
         z.updateCoeffLat()
+    nb_req.append(S.nb_sharks)
+    temps.append(i)
 print "----APRES BOUCLE ----"
 for i,Z in S.zones.items():
 	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum   
 
-
-
+plt.plot(temps, nb_req)
+plt.show()
 
 ########INTERFACE GRAPHIQUE#######
 #~ fen = Tk()
