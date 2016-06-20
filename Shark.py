@@ -28,7 +28,12 @@ class Shark :
         self.fit_position = 0 #Plus ce coeff est proche de 0, mieu c'est pour la survie du requin en gros il se fait pas remarquer et survi
         self.fit_reproduction = 0 #Plus ce coeff est grand, mieu c'est pour la reproduction du requin 
         self.has_rep = False # pour savoir si le requin s est deja reproduit
-
+        #je rajoute plein d'attributs pour me faciliter la vie pour les calculs:
+        self.coef_biolum_ventral = 0
+        self.coef_biolum_lateral = 0
+        self.cases_biolum_ventral = 0
+        self.cases_biolum_lateral = 0
+        
 
 
     def ventral_lateralBio(self, file_name1, file_name2):
@@ -87,19 +92,34 @@ class Shark :
                 y = y - 1
             x -= 1 
         tableau_ventral, tableau_lateral = tableaux[0][1], tableaux[1][1]
-        temp = 0
+        cases_biolum = 0
+        size_temp = 0
+        coef_lum = 0
         for i in range (len(tableau_lateral)):
             for j in range (len(tableau_lateral[0])):
-                if tableau_lateral[i][j] > 0:
-                    temp += 1
-                    self.lateral_bio += tableau_lateral[i][j]
-        self.size += temp * 2
+                if tableau_lateral[i][j] > 0.1:
+                  cases_biolum += 1
+                if tableau_lateral[i][j] >=0:
+                  size_temp +=1
+                  coef_lum += tableau_lateral[i][j]
+        self.size += size_temp * 2
+        self.coef_biolum_lateral = coef_lum
+        self.cases_biolum_lateral = cases_biolum
+        self.lateral_bio = (coef_lum/cases_biolum)
+        cases_biolum = 0
+        size_temp = 0
+        coef_lum = 0
         for i in range (len(tableau_ventral)):
             for j in range (len(tableau_ventral[0])):
-                if tableau_ventral[i][j] > 0:
-                    self.size += 1
-                    self.ventral_bio += tableau_ventral[i][j]
-        self.lateral_bio *= 2
+                if tableau_ventral[i][j] > 0.1:
+                  cases_biolm += 1
+                if tableau_ventral[i][j] >=0:
+                  size_temp += 1
+                  coef_lum += tableau_ventral[i][j]
+        self.size += size_temp
+        self.coef_biolum_ventral = coef_lum
+        self.cases_biolum_ventral = cases_biolum
+        self.ventral_bio = (coef_lum/cases_biolum)
         self.tab_ventral = deepcopy(tableau_ventral)
         self.tab_lateral = deepcopy(tableau_lateral)
         self.tab_memoire_lateral = deepcopy(self.tab_lateral)
@@ -112,8 +132,6 @@ class Shark :
 
     def updateBiolum(self) : 
         self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
-        self.lateral_bio=self.lateral_bio/self.size
-        self.ventral_bio=self.ventral_bio/self.size
 
     def calculProfondeur(self) : #donne la profondeur ideale en fonction de la proportion de requin recouvert par les photophores
         self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31) 
@@ -149,28 +167,27 @@ class Shark :
                 if tag:
                     a = self.tab_ventral[posx][posy] + modif
                     if a > 0 and a <= 1.0:
-                        if self.tab_ventral[posx][posy] == 0:
-                            self.size += 1
                         self.tab_ventral[posx][posy] += modif
-                        self.ventral_bio +=modif
+                        self.coef_biolum_ventral += modif
                     elif a <= 0:
-                        self.ventral_bio -= self.tab_ventral[posx][posy]
-                        self.size -=1
+                        self.coef_biolum_ventral -= self.tab_ventral[posx][posy]
+                        self.cases_biolum_ventral -= 1
                         self.tab_ventral[posx][posy] = 0.
+                    self.ventral_bio = self.coef_biolum_ventral / self.cases_biolum_ventral
                 else:
                     a = self.tab_lateral[posx][posy] + modif
                     if a > 0 and a <= 1.0:
-                        if self.tab_lateral[posx][posy] == 0:
-                            self.size += 1
                         self.tab_lateral[posx][posy] += modif
-                        self.lateral_bio += modif
+                        self.cases_biolum_lateral += modif
                     elif a <= 0 and a != -1:
-                        if self.tab_lateral[posx][posy] > 0 :
-                            self.size -= 1
-                        self.lateral_bio -= self.tab_lateral[posx][posy]
+                        self.coef_biolum_lateral -= self.tab_lateral[posx][posy]
+                        self.cases_biolum_lateral -= 1
                         self.tab_lateral[posx][posy] = 0.
+                    self.lateral_bio = self.coef_biolum_lateral / self.cases_biolum_lateral
                 self.updateBiolum()
                 self.updateFitReproduction()
+                self.calculProfondeur()
+                self.updateFitPosition()
 
     def req_final(self):
         x=0

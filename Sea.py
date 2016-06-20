@@ -96,8 +96,8 @@ class Sea :
                 self.zones[(cleZ[0]+200,cleZ[1]+200)].sharks.extend(zdessus)
             if(cleZ==(1000,1199)):	
                 self.zones[(cleZ[0]-200,cleZ[1]-200)].sharks.extend(zdessous)
-									
-									
+            
+
     def zone(self) : 
         for z in self.diffentesZones :
             if(self.position>=z[0] and self.position<=z[1]) :
