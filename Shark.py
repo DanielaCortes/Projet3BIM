@@ -184,10 +184,10 @@ class Shark :
                         self.cases_biolum_lateral -= 1
                         self.tab_lateral[posx][posy] = 0.
                     self.lateral_bio = self.coef_biolum_lateral / self.cases_biolum_lateral
-                self.updateBiolum()
-                self.updateFitReproduction()
-                self.calculProfondeur()
-                self.updateFitPosition()
+        self.updateBiolum()
+        self.calculProfondeur()
+        self.updateFitPosition()
+        self.updateFitReproduction()
 
     def req_final(self):
         x=0

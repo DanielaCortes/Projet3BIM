@@ -25,10 +25,10 @@ class Zone :
     self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre.
     ori_shark.initProfondeur()
     if (nb_sharks > 0) :
-      print "position de ORi"
-      print ori_shark.position
-      print "position ori ideale"
-      print ori_shark.position_ideale     
+      #print "position de ORi"
+      #print ori_shark.position
+      #print "position ori ideale"
+      #print ori_shark.position_ideale     
       for i in xrange (nb_sharks) :
         self.sharks.append(copy.copy(ori_shark))
     self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone
@@ -111,18 +111,22 @@ class Zone :
     zdessus=[] #requins a mettre au dessus
     indices=[] #indices requins a eliminer
     for i,a in enumerate (self.sharks):
-      r=random.randint(-20, 20)
-      #if a.fit_position>r:
-      #avec ca jai un peu peur qu'ils se retrouvent sur les bord mais on peut pas trop faire de conditions torriques
-      if(a.position+r>0  and a.position+r<1200 ): 
-        a.position+=r
-        a.updateFitPosition()  
-        if( a.position<self.prof_min ):
-          indices.append(i)
-          zdessous.append(a)
-        if(a.position>self.prof_max): 
-          indices.append(i)
-          zdessus.append(a) 
+      r=random.randint(-10, 10)
+      if a.fit_position>10:
+          pmove=0.1
+      else :
+          pmove=0.8
+      ptest=random.uniform(0,1)
+      if ptest<pmove :
+        if(a.position+r>0  and a.position+r<1200 ): 
+          a.position+=r
+          a.updateFitPosition()  
+          if( a.position<self.prof_min ):
+            indices.append(i)
+            zdessous.append(a)
+          if(a.position>self.prof_max): 
+            indices.append(i)
+            zdessus.append(a) 
     for i,j in enumerate(indices) :
       del self.sharks[j-i] #permet a chaque fois quon suprime element decale l indice a supprimer
     return ([zdessous,  zdessus])
