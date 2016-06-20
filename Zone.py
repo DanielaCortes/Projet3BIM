@@ -112,10 +112,13 @@ class Zone :
 		zdessus=[] #requins a mettre au dessus
 		indices=[] #indices requins a eliminer
 		for i,a in enumerate (self.sharks):
+    			#if a.fit_position>10:      
 			r=random.randint(-20, 20)
+    			#if a.fit_position>r: 
 			#avec ca jai un peu peur qu'ils se retrouvent sur les bord mais on peut pas trop faire de conditions torriques
 			if(a.position+r>0  and a.position+r<1200 ): 
 				a.position+=r
+				a.updateFitPosition()    
 				if( a.position<self.prof_min ):
 					indices.append(i)
 					zdessous.append(a)

@@ -170,6 +170,7 @@ class Shark :
                         self.lateral_bio -= self.tab_lateral[posx][posy]
                         self.tab_lateral[posx][posy] = 0.
                 self.updateBiolum()
+                self.updateFitReproduction()
 
     def req_final(self):
         x=0
