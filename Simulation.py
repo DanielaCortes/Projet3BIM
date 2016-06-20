@@ -23,7 +23,7 @@ temps = []
 print "----AVANT BOUCLE ----"
 for i,Z in S.zones.items():
     print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
-for i in range(5000) : #Temps total a definir
+for i in range(100000) : #Temps total a definir
     S.MoveZone()
     S.predation()
     for z in S.zones.values():
@@ -37,20 +37,20 @@ for i,Z in S.zones.items():
 plt.plot(temps, nb_req)
 plt.show()
 
-compteur = 0
-for z in S.zones.values():
-    print "Pour la zone de %d a %d : "%(compteur, compteur+200)
-    if z.req_final() != 0:
-        ventral, lateral = z.req_final()
-        plt.imshow(z.sharks[0].tab_memoire_ventral)
-        plt.show()
-        plt.imshow(a)
-        plt.show()
-        plt.imshow(z.sharks[0].tab_memoire_lateral)
-        plt.show()
-        plt.imshow(b)
-        plt.show()
-    compteur += 200
+#~ compteur = 0
+#~ for z in S.zones.values():
+    #~ print "Pour la zone de %d a %d : "%(compteur, compteur+200)
+    #~ if z.req_final() != 0:
+        #~ ventral, lateral = z.req_final()
+        #~ plt.imshow(z.sharks[0].tab_memoire_ventral)
+        #~ plt.show()
+        #~ plt.imshow(a)
+        #~ plt.show()
+        #~ plt.imshow(z.sharks[0].tab_memoire_lateral)
+        #~ plt.show()
+        #~ plt.imshow(b)
+        #~ plt.show()
+    #~ compteur += 200
         
         
         
