@@ -28,7 +28,7 @@ class Sea :
         self.adaptNbPred();
 
     def Evo_population (self,zone) : # calculate how many sharks die or give birth, idem predators
-        if (zone.percent_shark>0):
+        if (zone.percent_shark>0) and (len(zone.sharks)>0):
             r0=0.47
             r=r0*math.pow(1+zone.coeff_lat_lum,2)
             K=600*zone.percent_shark #on pondere la capacite d'accueil en fonction de la profondeur et du pourcentage de requins qui s'y trouvent

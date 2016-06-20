@@ -17,33 +17,26 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 
 
 ####################BOUCLE_PRINCIPALE##########################
-
-for i in range(100000) : #Temps total a definir
-				S.MoveZone()
-				S.predation()
-     
-####################MUTATION################
-
-#~ print "----AVANT BOUCLE ----"
-#~ for i,Z in S.zones.items():
-	#~ print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
-#~ for i in range(10000) : #Temps total a definir
-    #~ S.MoveZone()
-    #~ S.predation()
-    #~ for z in S.zones.values():
-        #~ z.updateCoeffLat()
-#~ print "----APRES BOUCLE ----"
-#~ for i,Z in S.zones.items():
-	#~ print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum   
+print "----AVANT BOUCLE ----"
+for i,Z in S.zones.items():
+    print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
+for i in range(10000) : #Temps total a definir
+    S.MoveZone()
+    S.predation()
+    for z in S.zones.values():
+        z.updateCoeffLat()
+print "----APRES BOUCLE ----"
+for i,Z in S.zones.items():
+	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum   
 
 
 
 
 ########INTERFACE GRAPHIQUE#######
-fen = Tk()
-interface = Interface(fen)
-interface.mainloop()
-interface.destroy()
+#~ fen = Tk()
+#~ interface = Interface(fen)
+#~ interface.mainloop()
+#~ interface.destroy()
 
 #req1 = Shark([800, 999])
 #req1.ventral_lateralBio("requin_lateral.jpg", "requin_ventral.jpg")

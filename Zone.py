@@ -102,8 +102,10 @@ class Zone :
 
 
   def newPercent(self,nStot): #nStot : nb total of shark
-				if(nStot !=0):
-						self.percent_shark=len(self.sharks)/nStot
+    if nStot != 0:
+      self.percent_shark=len(self.sharks)/float(nStot)
+    else:
+      self.percent_shark=0.0
     
     
   def moveShark(self):
@@ -112,10 +114,10 @@ class Zone :
     indices=[] #indices requins a eliminer
     for i,a in enumerate (self.sharks):
       r=random.randint(-10, 10)
-      if a.fit_position>10:
-          pmove=0.1
-      else :
+      if a.fit_position>60: #60 -> on verra
           pmove=0.8
+      else :
+          pmove=0.1
       ptest=random.uniform(0,1)
       if ptest<pmove :
         if(a.position+r>0  and a.position+r<1200 ): 
