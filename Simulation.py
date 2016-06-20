@@ -5,7 +5,7 @@ from Shark import Shark
 from Zone import Zone
 import copy
 
-###/!\ Ne pas enlever les commentaires sur predation tant que les coeff de lum n'ont pas été modifies
+###/!\ Ne pas enlever les commentaires sur predation tant que les coeff de lum n'ont pas ete modifies
 
 #CREER ICI LE REQUIN MODELE
 req1 = Shark([800, 999])
@@ -15,12 +15,12 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 
 
 ####################BOUCLE_PRINCIPALE##########################
-#for i in range(100000) : #Temps total a definir
-#    S.MoveZone()
-#    S.predation()
-#    for z in S.zones.values():
-#        z.updateCoeffLat()
-   
+for i in range(100000) : #Temps total a definir
+    S.MoveZone()
+    S.predation()
+    for z in S.zones.values():
+        z.updateCoeffLat()
+
 
 
 #req1 = Shark([800, 999])
