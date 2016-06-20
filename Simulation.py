@@ -15,13 +15,12 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 
 
 ####################BOUCLE_PRINCIPALE##########################
-<<<<<<< HEAD
 for i in range(100000) : #Temps total a definir
 				S.MoveZone()
 				S.predation()
      
 ####################MUTATION################
-=======
+
 print "----AVANT BOUCLE ----"
 for i,Z in S.zones.items():
 	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
@@ -33,8 +32,6 @@ for i in range(10000) : #Temps total a definir
 print "----APRES BOUCLE ----"
 for i,Z in S.zones.items():
 	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum   
-
->>>>>>> 8a1266729359c10443bec76cfd7869e9c8bb49b9
 
 
 #req1 = Shark([800, 999])

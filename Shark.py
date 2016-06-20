@@ -92,13 +92,13 @@ class Shark :
                 y = y - 1
             x -= 1 
         tableau_ventral, tableau_lateral = tableaux[0][1], tableaux[1][1]
-        cases_biolum = 0
+        cases_biolum=0
         size_temp = 0
         coef_lum = 0
         for i in range (len(tableau_lateral)):
             for j in range (len(tableau_lateral[0])):
                 if tableau_lateral[i][j] > 0.1:
-                  cases_biolum += 1
+                  cases_biolum +=1
                 if tableau_lateral[i][j] >=0:
                   size_temp +=1
                   coef_lum += tableau_lateral[i][j]
@@ -112,7 +112,7 @@ class Shark :
         for i in range (len(tableau_ventral)):
             for j in range (len(tableau_ventral[0])):
                 if tableau_ventral[i][j] > 0.1:
-                  cases_biolm += 1
+                  cases_biolum += 1
                 if tableau_ventral[i][j] >=0:
                   size_temp += 1
                   coef_lum += tableau_ventral[i][j]
@@ -131,7 +131,8 @@ class Shark :
 
 
     def updateBiolum(self) : 
-        self.pap = (self.lateral_bio + self.ventral_bio)/self.size *100
+        self.pap = (self.cases_biolum_lateral+self.cases_biolum_ventral)*100/self.size
+        
 
     def calculProfondeur(self) : #donne la profondeur ideale en fonction de la proportion de requin recouvert par les photophores
         self.position_ideale = 500 * math.exp(-0.564*math.log(self.pap)+2.31) 

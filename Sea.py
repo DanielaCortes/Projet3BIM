@@ -15,8 +15,9 @@ class Sea :
         self.D=D #profondeur du milieu
         self.zones={} #dico, cle bornes de la zones sous forme de tuple, objet zone
         self.nb_sharks=nb_sharks_
+        ori_shark.updateBiolum()
+        ori_shark.calculProfondeur()
         ori_shark.initProfondeur()
-
         for key in zone_:
             if(ori_shark.position>key[0] and ori_shark.position < key[1]):
                 s = nb_sharks_

@@ -23,7 +23,6 @@ class Zone :
     self.coeff_lat_lum=0 
     self.coeff_vent_lum=0
     self.predators=0 #en fait on a pas vraiment besoin de stocker un predateur, juste le nombre.
-    ori_shark.initProfondeur()
     if (nb_sharks > 0) :
       #print "position de ORi"
       #print ori_shark.position
@@ -103,7 +102,8 @@ class Zone :
 
 
   def newPercent(self,nStot): #nStot : nb total of shark
-    self.percent_shark=len(self.sharks)/nStot
+				if(nStot !=0):
+						self.percent_shark=len(self.sharks)/nStot
     
     
   def moveShark(self):
