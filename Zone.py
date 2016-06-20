@@ -34,6 +34,7 @@ class Zone :
 		self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone
 		self.newPercent(nb_sharks_tot)  # Mise a jour du pourcentage de requins dans la zone        
 		self.updateCoeffLat()
+          
 
 	#celui qu'on doit utiliser doit etre la moyenne de tous les requins qui sont dans la zone 
 	def updateCoeffLat (self):
@@ -47,26 +48,6 @@ class Zone :
 			self.coeff_vent_lum=sven/len(self.sharks)		
 			
 
-#Kill Sharks v1	: par rapport a la biolum
-	"""def killSharks (self, nb_s) :  #on fournit le nombre de requins a tuer
-		if (nb_s >= len(self.sharks)) : 
-			self.sharks=[]
-		else :
-			death_candidates=[]
-			for i,a in enumerate (self.sharks) :
-				if (a.updateBiolum()> self.prof_max or a.updateBiolum() <self.prof_min) : # a modifier, c est plutot I < a la lumiere de la zone
-					death_candidates.append(a) 
-			random.shuffle(death_candidates) #pas de biais
-			if (len(death_candidates)<nb_s): #si pas assez de mort, on tue les requins bien adaptes
-				copie = self.sharks
-				random.shuffle(copie)
-				for i, a in enumerate (copie) :
-					if (a.updateBiolum()< self.prof_max or a.updateBiolum() >self.prof_min) : # a modifier, c est plutot I < a la lumiere de la zone
-						death_candidates.append(a)
-						if (len(death_candidates) == nb_s) :
-							break; 
-			for i in xrange(nb_s) :
-				self.sharks.remove(death_candidates[i])"""
   #KillSharksv2 : par rapport a la position et a bio lateral
 	def killSharks (self, nb_s) :  #on fournit le nombre de requins a tuer
 		if (nb_s >= len(self.sharks)) : #on tue tout le monde sans calculs si pas assez de requins
@@ -77,39 +58,15 @@ class Zone :
 				fitness.append(a.fit_position * a.lateral_bio) 
 			for i in xrange (int(nb_s)) :
 				fmax=max(fitness)
-				death_candidats=[] #leur indice
+				death_candidates=[] #leur indice
 				for j,a in enumerate (self.sharks) :
-					if (a.fit_position == fmax) : 
-						death_candidats.append(j)
+					if (a.fit_position * a.lateral_bio == fmax) : 
+						death_candidates.append(j)
 				random.shuffle(death_candidates) # on tue aleatoirement un des requins qui a la fitness position max
 				fitness.pop(death_candidates[0])
 				self.sharks.pop(death_candidates[0])   
             
 
-			
-      
-      
-  #New Sharks v1 : par rapport a la biolum    
-	"""def newSharks (self, nb_s) :  #requins a naitre
-		new_candidates=[]
-		for i, a in enumerate (self.sharks) :
-				new_candidates.append(a) 
-		random.shuffle(new_candidates)
-		if (len(new_candidates)<nb_s): #si pas assez de vivant, on fait quoi?
-			copie = self.sharks
-			random.shuffle(copie)
-			for i, a in enumerate (copie) :
-				if (a.updateBiolum()> self.prof_max or a.updateBiolum() <self.prof_min) : # a modifier, c est plutot I < a la lumiere de la zone
-					new_candidates.append(a)
-				if (len(new_candidates) == nb_s) :
-					break 
-        #peut-etre remelanger new_candidates Ici???
-		for i,a in enumerate(new_candidates) : #ne fonctionne pas, ne rajoute pas un nombre limite de requins.
-			if (i<nb_s) :
-				self.sharks.append(copy.copy(a))
-		for i in xrange(nb_s):
-			self.sharks.append(copy.copy(self.sharks[0]))"""
-        
   #newSharks v2 : par rapport a fitness rep
 	def newSharks (self, nb_s) :  #requins a naitre
 		if (nb_s >= len(self.sharks)) :

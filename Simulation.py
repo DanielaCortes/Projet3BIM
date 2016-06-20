@@ -49,9 +49,10 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 ######################PREDATOR###############
 #for i,Z in S.zones.items():
 #	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
-#S.predation()
-#for z in S.zones.values():
-#    z.updateCoeffLat()
+#for i in range(1):
+#    S.predation()
+#    for z in S.zones.values():
+#        z.updateCoeffLat()
 #for i,Z in S.zones.items():
 #	print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
 
@@ -63,12 +64,12 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 
 #ICI on fait bouger les requin sur tout l ocean !!! 
 #on compare avant apres et on voit bien qu ils ont bouge
-print "\n Avant de move \n" 
-for i,Z in S.zones.items():
-	print i,len(Z.sharks)
-for i in range(1000):
-	S.MoveZone()
-print "\n Apres move \n" 	
-for i,Z in S.zones.items():
-	print i,len(Z.sharks)
-	
+#print "\n Avant de move \n" 
+#for i,Z in S.zones.items():
+#	print i,len(Z.sharks)
+#for i in range(1000):
+#	S.MoveZone()
+#print "\n Apres move \n" 	
+#for i,Z in S.zones.items():
+#	print i,len(Z.sharks)
+#	

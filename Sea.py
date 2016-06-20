@@ -19,22 +19,14 @@ class Sea :
         ori_shark.initProfondeur()
 
         for key in zone_:
-												if(ori_shark.position>key[0] and ori_shark.position < key[1]):
-																	s = nb_sharks_  
-												else :
-																	s=0
-												self.zones[key]=Zone(key[0],key[1],s,nb_sharks_,ori_shark)									
-															      
-        #~ for i in xrange (len(zone_)) :
-            #~ if (zone_[i] == starting_I) : #On initialise en ne mettant des requins que dans la premiere zone
-                #~ s = nb_sharks_
-            #~ else :
-                #~ s=0
-            #~ self.zones[zone_[i]]=Zone(zone_[i][0],zone_[i][1],s,nb_sharks_,ori_shark)
+            if(ori_shark.position>key[0] and ori_shark.position < key[1]):
+                s = nb_sharks_  
+            else :
+                s=0
+            self.zones[key]=Zone(key[0],key[1],s,nb_sharks_,ori_shark)									
         self.predators=nb_predators_
         self.adaptNbPred();
   
-
     def Evo_population (self,zone) : # calculate how many sharks die or give birth, idem predators
         if (zone.percent_shark>0):
             r0=0.47
@@ -86,7 +78,7 @@ class Sea :
         for z in self.zones.values():
              self.nb_sharks+=len(z.sharks)
         for z in self.zones.values(): #mise a jour des pourcentages de requin dans chaque classe
-             z.newPercent(self.nb_sharks)
+            z.newPercent(self.nb_sharks)
     
     def adaptNbPred(self):
         for z in self.zones.values() : 
