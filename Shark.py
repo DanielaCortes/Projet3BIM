@@ -112,7 +112,7 @@ class Shark :
         for i in range (len(tableau_ventral)):
             for j in range (len(tableau_ventral[0])):
                 if tableau_ventral[i][j] > 0.1:
-                  cases_biolm += 1
+                  cases_biolum += 1
                 if tableau_ventral[i][j] >=0:
                   size_temp += 1
                   coef_lum += tableau_ventral[i][j]
