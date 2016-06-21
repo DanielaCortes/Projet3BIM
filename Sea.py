@@ -11,7 +11,7 @@ class Sea :
     - some predators
     - nb of shark in the Sea
     """
-    def __init__(self,D,zone_,nb_sharks_,starting_I,nb_predators_,ori_shark) : #zone_ c'est les limites de chaque zones, ori_shark c est notre requin modele de base
+    def __init__(self,D,zone_,nb_sharks_,nb_predators_,ori_shark) : #zone_ c'est les limites de chaque zones, ori_shark c est notre requin modele de base
         self.D=D #profondeur du milieu
         self.zones={} #dico, cle bornes de la zones sous forme de tuple, objet zone
         self.nb_sharks=nb_sharks_
@@ -47,7 +47,7 @@ class Sea :
             #Difference sur un pas de temps
             diff_R=round(nb_R-nb_Rn)
             diff_P=round(nb_P-nb_Pn)
-            return diff_R,diff_P
+            return [diff_R,diff_P]
         else :
             return 0,0
 
@@ -57,7 +57,11 @@ class Sea :
     def predation(self):
         diff_P_tot=0;
         for z in self.zones.values():
-            diff_R,diff_P=self.Evo_population(z)
+            diff_R, diff_P = 0, 0
+            for k in xrange(10):
+                a= self.Evo_population(z)
+                diff_R += a[0]
+                diff_P += a[1]
             diff_P_tot+=diff_P
 
             #Population de requin
@@ -105,21 +109,21 @@ class Sea :
                  self.zone= z
 
 
-    def comptage(self):
-        req1_ventral = []
-        req1_lateral = []
-        compteur_req1 = []
-        for i in range (len(self.zones)):
-            mean_sharks_ventral = [[0 for i in range (len(self.zones[i].sharks[j].tab_ventral))] for j in range (len(self.zones[i].sharks[j].tab_ventral[0]))]
-            mean_sharks_lateral = [[0 for i in range (len(self.zones[i].sharks[j].tab_lateral))] for j in range (len(self.zones[i].sharks[j].tab_lateral[0]))]
-            for j in range (len(self.zones.sharks)):
-                mean_sharks_ventral += self.zones[i].sharks[j].tab_ventral
-                mean_sharks_lateral += self.zones[i].sharks[j].tab_lateral
-            mean_sharks_ventral /= float(len(self.zones[i].sharks))
-            mean_sharks_lateral /= float(len(self.zones[i].sharks))
-            compteur_req1.apppend(len(self.zones[i].sharks))
-            req1_ventral.append(mean_sharks_ventral)
-            req1_lateral.append(mean_sharks_lateral)
+    #~ def comptage(self):
+        #~ req1_ventral = []
+        #~ req1_lateral = []
+        #~ compteur_req1 = []
+        #~ for i in range (len(self.zones)):
+            #~ mean_sharks_ventral = [[0 for i in range (len(self.zones[i].sharks[j].tab_ventral))] for j in range (len(self.zones[i].sharks[j].tab_ventral[0]))]
+            #~ mean_sharks_lateral = [[0 for i in range (len(self.zones[i].sharks[j].tab_lateral))] for j in range (len(self.zones[i].sharks[j].tab_lateral[0]))]
+            #~ for j in range (len(self.zones.sharks)):
+                #~ mean_sharks_ventral += self.zones[i].sharks[j].tab_ventral
+                #~ mean_sharks_lateral += self.zones[i].sharks[j].tab_lateral
+            #~ mean_sharks_ventral /= float(len(self.zones[i].sharks))
+            #~ mean_sharks_lateral /= float(len(self.zones[i].sharks))
+            #~ compteur_req1.apppend(len(self.zones[i].sharks))
+            #~ req1_ventral.append(mean_sharks_ventral)
+            #~ req1_lateral.append(mean_sharks_lateral)
 
 
 

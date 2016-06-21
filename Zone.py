@@ -1,6 +1,6 @@
 import random
 from Shark import Shark
-import copy
+from copy import *
 
 
 class Zone : 
@@ -29,7 +29,7 @@ class Zone :
       #print "position ori ideale"
       #print ori_shark.position_ideale     
       for i in xrange (nb_sharks) :
-        self.sharks.append(copy.copy(ori_shark))
+        self.sharks.append(copy(ori_shark))
     self.percent_shark=0.0 #pourcentage du nb de requins presents dans la zone
     self.newPercent(nb_sharks_tot)  # Mise a jour du pourcentage de requins dans la zone        
     self.updateCoeffLat()
@@ -63,14 +63,16 @@ class Zone :
             death_candidates.append(j)
         random.shuffle(death_candidates) # on tue aleatoirement un des requins qui a la fitness position max
         fitness.pop(death_candidates[0])
-        self.sharks.pop(death_candidates[0])   
-            
+        del self.sharks[death_candidates[0]]
+        for t in death_candidates: #on retire 1 aux indices a chaque iteration car sinon le req1 existe plus
+          t -= 1
 
   #newSharks v2 : par rapport a fitness rep
   def newSharks (self, nb_s) :  #requins a naitre
     if (nb_s >= len(self.sharks)) :
-      for i,a in enumerate (self.sharks) :
-        self.sharks.append(copy.copy(a))
+      newsharks = copy(self.sharks)
+      for i in xrange (len(newsharks)):
+        self.sharks.append(newsharks[i])
     else :
       fitness =[] #pour pouvoir comparer les fitness des requins
       for i,a in enumerate (self.sharks) :
@@ -84,7 +86,7 @@ class Zone :
         random.shuffle(new_candidates) # on reproduit aleatoirement un des requins qui a la fitness position max
         fitness[new_candidates[0]] = -1
         self.sharks[new_candidates[0]].has_Reproduce()
-        self.sharks.append(copy.copy(self.sharks[new_candidates[0]]))
+        self.sharks.append(copy(self.sharks[new_candidates[0]]))
         self.sharks[-1].toMute()
     for i,a in enumerate (self.sharks) :
       a.reset_Rep();
@@ -133,3 +135,18 @@ class Zone :
       del self.sharks[j-i] #permet a chaque fois quon suprime element decale l indice a supprimer
     return ([zdessous,  zdessus])
 
+
+  def req_final(self):
+    if len(self.sharks) != 0:
+      tab_zone_lateral = [[0 for i in range (len(self.sharks[0].tab_lateral[0]))] for i in range (len(self.sharks[0].tab_lateral))]
+      tab_zone_ventral = [[0 for i in range (len(self.sharks[0].tab_ventral[0]))] for i in range (len(self.sharks[0].tab_ventral))]
+      for req in self.sharks:
+        for i in range (len(req.tab_lateral)):
+          for j in range (len(req.tab_lateral[0])):
+            tab_zone_lateral[i][j] += req.tab_lateral[i][j] / len(self.sharks)
+        for i in range (len(req.tab_ventral)):
+          for j in range (len(req.tab_ventral[0])):
+            tab_zone_ventral[i][j] += req.tab_ventral[i][j] / len(self.sharks)
+      return tab_zone_ventral, tab_zone_lateral
+    else:
+      return 0
