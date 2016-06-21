@@ -41,6 +41,26 @@ class Sea :
             #Valeur initiale
             nb_Rn=len(zone.sharks)
             nb_Pn=zone.predators
+            
+            #k1R=(r*nb_Rn*(1-nb_Rn/K)-alpha*nb_Rn*nb_Pn/(beta+nb_Rn))
+            #k1P=nb_Pn*e*(1-m*nb_Pn/nb_Rn)
+            
+            #A1R=k1R*h/2+nb_Rn
+            #A1P=k1P*h/2+nb_Pn
+            #k2R=(r*A1R*(1-A1R/K)-alpha*A1R*A1P/(beta+A1R))
+            #k2P=A1P*e*(1-m*A1P/A1R)
+            
+            #A2R=k2R*h/2+nb_Rn
+            #A2P=k2P*h/2+nb_Pn
+            #k3R=(r*A2R*(1-A2R/K)-alpha*A2R*A2P/(beta+A2R))
+            #k3P=A2P*e*(1-m*A2P/A2R)  
+            
+            #A3R=k3R*h/2+nb_Rn
+            #A3P=k3P*h/2+nb_Pn
+            #k4R=(r*A2R*(1-A2R/K)-alpha*A2R*A2P/(beta+A2R))
+            #k4P=A2P*e*(1-m*A2P/A2R) 
+        
+        
             #Calcul au temps n+1
             nb_R=nb_Rn+h*(r*nb_Rn*(1-nb_Rn/K)-alpha*nb_Rn*nb_Pn/(beta+nb_Rn))
             nb_P=nb_Pn+h*nb_Pn*e*(1-m*nb_Pn/nb_Rn)
