@@ -19,18 +19,34 @@ S = Sea(1200,[(0,199),(200,399),(400,599),(600,799),(800,999),(1000,1199)],400, 
 
 ####################BOUCLE_PRINCIPALE##########################
 nb_req = []
+nb_req1=[]
+nb_req2=[]
+nb_req3=[]
+nb_req4=[]
+nb_req5=[]
+nb_req6=[]
 temps = []
 print "----AVANT BOUCLE ----"
 for i,Z in S.zones.items():
     print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
-for i in range(50000) : #Temps total a definir
+for i in range(100000) : #Temps total a definir
+    print (i)
     S.MoveZone()
-    print i
     S.predation()
     for z in S.zones.values():
-        z.updateCoeffLat()
+        z.updateCoeffLat()    
     nb_req.append(S.nb_sharks)
+    nb_req1.append(len(S.zones[(0,199)].sharks))
+    nb_req2.append(len(S.zones[(200,399)].sharks))
+    nb_req3.append(len(S.zones[(400,599)].sharks))
+    nb_req4.append(len(S.zones[(600,799)].sharks))
+    nb_req5.append(len(S.zones[(800,999)].sharks))
+    nb_req6.append(len(S.zones[(1000,1199)].sharks))
     temps.append(i)
+    if i>45000:
+        for j,Z in S.zones.items():
+           print i,j,len(Z.sharks)  
+
 print "----APRES BOUCLE ----"
 for i,Z in S.zones.items():
     print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum   
@@ -39,6 +55,20 @@ plt.plot(temps, nb_req)
 plt.show()
 
 
+
+plt.plot(temps,  nb_req1,label="Zone 0-199")
+plt.plot(temps,  nb_req2,label="Zone 200-399")
+plt.plot(temps,  nb_req3,label="Zone 400-599")
+plt.plot(temps,  nb_req4,label="Zone 600-799")
+plt.plot(temps,  nb_req5,label="Zone 800-999")
+plt.plot(temps,  nb_req6,label="Zone 1000-1199")
+
+
+plt.legend()
+plt.show()
+
+#~ plt.plot(temps, nb_req1,label="Zone 0-199",temps, nb_req2,label="Zone 200-399",temps, nb_req3,temps, nb_req4,temps, nb_req5,temps, nb_req6 )
+#~ plt.show()
 
 #~ compteur = 0
 #~ for z in S.zones.values():
