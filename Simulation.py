@@ -25,7 +25,7 @@ for i,Z in S.zones.items():
     print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
 for i in range(50000) : #Temps total a definir
     S.MoveZone()
-    #print i
+    print i
     S.predation()
     for z in S.zones.values():
         z.updateCoeffLat()
@@ -37,6 +37,8 @@ for i,Z in S.zones.items():
 
 plt.plot(temps, nb_req)
 plt.show()
+
+
 
 #~ compteur = 0
 #~ for z in S.zones.values():
