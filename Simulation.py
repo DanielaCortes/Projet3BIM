@@ -23,15 +23,9 @@ temps = []
 print "----AVANT BOUCLE ----"
 for i,Z in S.zones.items():
     print i,len(Z.sharks),Z.coeff_lat_lum,Z.coeff_vent_lum
-<<<<<<< HEAD
 for i in range(100000) : #Temps total a definir
     print (i)
     S.MoveZone()
-=======
-for i in range(10000) : #Temps total a definir
-    S.MoveZone()
-    print i
->>>>>>> d6f2f490c103b327d9a1d8c45a379fc310eba988
     S.predation()
     for z in S.zones.values():
         z.updateCoeffLat()

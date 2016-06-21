@@ -73,7 +73,6 @@ class Zone :
       newsharks = copy(self.sharks)
       for i in xrange (len(newsharks)):
         self.sharks.append(newsharks[i])
-<<<<<<< HEAD
       nb_s=nb_s-len(self.sharks)
     fitness =[] #pour pouvoir comparer les fitness des requins
     for i,a in enumerate (self.sharks) :
@@ -90,27 +89,7 @@ class Zone :
       self.sharks.append(copy(self.sharks[new_candidates[0]]))
       self.sharks[-1].toMute()
       self.sharks[-1].has_Reproduce()
-=======
-    else :
-      fitness =[] #pour pouvoir comparer les fitness des requins
-      for i,a in enumerate (self.sharks) :
-        fitness.append(a.fit_reproduction)
-      for i in xrange (int(nb_s)) :
-        fmax = max(fitness)
-        new_candidates =[] #leur indice
-        #print len(fitness), len(self.sharks)
-        for j,a in enumerate (self.sharks) :
-          if (a.fit_reproduction == fmax and a.has_rep < 20) : 
-            new_candidates.append(j)
-        random.shuffle(new_candidates) # on reproduit aleatoirement un des requins qui a la fitness position max
-        if (len(new_candidates)>0) :
-          #print new_candidates[0], len(fitness)
-          fitness[new_candidates[0]] = -1
-          self.sharks[new_candidates[0]].has_Reproduce()
-          self.sharks.append(copy(self.sharks[new_candidates[0]]))
-          self.sharks[-1].has_Reproduce()
-          self.sharks[-1].toMute()
->>>>>>> d6f2f490c103b327d9a1d8c45a379fc310eba988
+
     for i,a in enumerate (self.sharks) :
       a.reset_Rep();
   
