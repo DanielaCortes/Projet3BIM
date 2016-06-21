@@ -80,14 +80,18 @@ class Zone :
       for i in xrange (int(nb_s)) :
         fmax = max(fitness)
         new_candidates =[] #leur indice
+        #print len(fitness), len(self.sharks)
         for j,a in enumerate (self.sharks) :
-          if (a.fit_reproduction == fmax and a.has_rep == False) : 
+          if (a.fit_reproduction == fmax and a.has_rep < 20) : 
             new_candidates.append(j)
         random.shuffle(new_candidates) # on reproduit aleatoirement un des requins qui a la fitness position max
-        fitness[new_candidates[0]] = -1
-        self.sharks[new_candidates[0]].has_Reproduce()
-        self.sharks.append(copy(self.sharks[new_candidates[0]]))
-        self.sharks[-1].toMute()
+        if (len(new_candidates)>0) :
+          #print new_candidates[0], len(fitness)
+          fitness[new_candidates[0]] = -1
+          self.sharks[new_candidates[0]].has_Reproduce()
+          self.sharks.append(copy(self.sharks[new_candidates[0]]))
+          self.sharks[-1].has_Reproduce()
+          self.sharks[-1].toMute()
     for i,a in enumerate (self.sharks) :
       a.reset_Rep();
 

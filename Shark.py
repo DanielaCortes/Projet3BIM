@@ -27,7 +27,7 @@ class Shark :
         self.tab_memoire_ventral = []
         self.fit_position = 0 #Plus ce coeff est proche de 0, mieu c'est pour la survie du requin en gros il se fait pas remarquer et survi
         self.fit_reproduction = 0 #Plus ce coeff est grand, mieu c'est pour la reproduction du requin 
-        self.has_rep = False # pour savoir si le requin s est deja reproduit
+        self.has_rep = 0 # pour savoir si le requin s est deja reproduit
         #je rajoute plein d'attributs pour me faciliter la vie pour les calculs:
         self.coef_biolum_ventral = 0
         self.coef_biolum_lateral = 0
@@ -236,10 +236,10 @@ class Shark :
         self.fit_reproduction = self.lateral_bio/self.ventral_bio
 
     def has_Reproduce (self) :
-        self.has_rep = True
+        self.has_rep = 21
     
     def reset_Rep (self) :
-        self.has_rep = False
+        self.has_rep = 0
     
     def mise_jour_attributs(self):
         self.updateFitPosition()
