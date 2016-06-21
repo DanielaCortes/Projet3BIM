@@ -11,7 +11,7 @@ class Sea :
     - some predators
     - nb of shark in the Sea
     """
-    def __init__(self,D,zone_,nb_sharks_,starting_I,nb_predators_,ori_shark) : #zone_ c'est les limites de chaque zones, ori_shark c est notre requin modele de base
+    def __init__(self,D,zone_,nb_sharks_,nb_predators_,ori_shark) : #zone_ c'est les limites de chaque zones, ori_shark c est notre requin modele de base
         self.D=D #profondeur du milieu
         self.zones={} #dico, cle bornes de la zones sous forme de tuple, objet zone
         self.nb_sharks=nb_sharks_
